@@ -1,5 +1,17 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    BOOL
+    COCHON_EGAL_PORC
+    FERMEZ_VOS_ORDINATEUR
+    JE_PASSE_MON_ANNEE
+    JE_VAIS_BOSSER_CETTE_SEMAINE
+    ONE_POINT
+    PAS_TERRIBLE
+    SERIEUX
+    TROEUW
+
 Grammar
 
 Rule 0     S' -> programme
@@ -7,28 +19,44 @@ Rule 1     programme -> statement
 Rule 2     programme -> statement ; programme
 Rule 3     statement -> assignation
 Rule 4     statement -> structure
-Rule 5     statement -> PRINT expression
+Rule 5     statement -> PAS_MAL expression
 Rule 6     structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression { programme }
 Rule 7     expression -> expression ADD_OP expression
 Rule 8     expression -> expression MUL_OP expression
 Rule 9     expression -> NUMBER
-Rule 10    expression -> IDENTIFIER
-Rule 11    expression -> ( expression )
-Rule 12    expression -> ADD_OP expression
-Rule 13    assignation -> IDENTIFIER = expression
+Rule 10    expression -> INT
+Rule 11    expression -> boolean
+Rule 12    expression -> IDENTIFIER
+Rule 13    boolean -> TRUE
+Rule 14    boolean -> FALSE
+Rule 15    expression -> ( expression )
+Rule 16    expression -> ADD_OP expression
+Rule 17    assignation -> IDENTIFIER = expression
 
 Terminals, with rules where they appear
 
-(                    : 11
-)                    : 11
+(                    : 15
+)                    : 15
 ;                    : 2
-=                    : 13
-ADD_OP               : 7 12
-IDENTIFIER           : 10 13
+=                    : 17
+ADD_OP               : 7 16
+BOOL                 : 
+COCHON_EGAL_PORC     : 
+FALSE                : 14
+FERMEZ_VOS_ORDINATEUR : 
+IDENTIFIER           : 12 17
+INT                  : 10
+JE_PASSE_MON_ANNEE   : 
+JE_VAIS_BOSSER_CETTE_SEMAINE : 
 MUL_OP               : 8
 NUMBER               : 9
+ONE_POINT            : 
 ON_SE_LE_REFAIT_UNE_PETITE_FOIS : 6
-PRINT                : 5
+PAS_MAL              : 5
+PAS_TERRIBLE         : 
+SERIEUX              : 
+TROEUW               : 
+TRUE                 : 13
 error                : 
 {                    : 6
 }                    : 6
@@ -36,7 +64,8 @@ error                :
 Nonterminals, with rules where they appear
 
 assignation          : 3
-expression           : 5 6 7 7 8 8 11 12 13
+boolean              : 11
+expression           : 5 6 7 7 8 8 15 16 17
 programme            : 2 6 0
 statement            : 1 2
 structure            : 4
@@ -50,11 +79,11 @@ state 0
     (2) programme -> . statement ; programme
     (3) statement -> . assignation
     (4) statement -> . structure
-    (5) statement -> . PRINT expression
-    (13) assignation -> . IDENTIFIER = expression
+    (5) statement -> . PAS_MAL expression
+    (17) assignation -> . IDENTIFIER = expression
     (6) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression { programme }
 
-    PRINT           shift and go to state 5
+    PAS_MAL         shift and go to state 5
     IDENTIFIER      shift and go to state 6
     ON_SE_LE_REFAIT_UNE_PETITE_FOIS shift and go to state 7
 
@@ -99,26 +128,34 @@ state 4
 
 state 5
 
-    (5) statement -> PRINT . expression
+    (5) statement -> PAS_MAL . expression
     (7) expression -> . expression ADD_OP expression
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . ADD_OP expression
+    (10) expression -> . INT
+    (11) expression -> . boolean
+    (12) expression -> . IDENTIFIER
+    (15) expression -> . ( expression )
+    (16) expression -> . ADD_OP expression
+    (13) boolean -> . TRUE
+    (14) boolean -> . FALSE
 
     NUMBER          shift and go to state 11
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 13
+    INT             shift and go to state 12
+    IDENTIFIER      shift and go to state 14
+    (               shift and go to state 15
     ADD_OP          shift and go to state 10
+    TRUE            shift and go to state 16
+    FALSE           shift and go to state 17
 
     expression                     shift and go to state 9
+    boolean                        shift and go to state 13
 
 state 6
 
-    (13) assignation -> IDENTIFIER . = expression
+    (17) assignation -> IDENTIFIER . = expression
 
-    =               shift and go to state 14
+    =               shift and go to state 18
 
 
 state 7
@@ -127,16 +164,24 @@ state 7
     (7) expression -> . expression ADD_OP expression
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . ADD_OP expression
+    (10) expression -> . INT
+    (11) expression -> . boolean
+    (12) expression -> . IDENTIFIER
+    (15) expression -> . ( expression )
+    (16) expression -> . ADD_OP expression
+    (13) boolean -> . TRUE
+    (14) boolean -> . FALSE
 
     NUMBER          shift and go to state 11
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 13
+    INT             shift and go to state 12
+    IDENTIFIER      shift and go to state 14
+    (               shift and go to state 15
     ADD_OP          shift and go to state 10
+    TRUE            shift and go to state 16
+    FALSE           shift and go to state 17
 
-    expression                     shift and go to state 15
+    expression                     shift and go to state 19
+    boolean                        shift and go to state 13
 
 state 8
 
@@ -145,48 +190,56 @@ state 8
     (2) programme -> . statement ; programme
     (3) statement -> . assignation
     (4) statement -> . structure
-    (5) statement -> . PRINT expression
-    (13) assignation -> . IDENTIFIER = expression
+    (5) statement -> . PAS_MAL expression
+    (17) assignation -> . IDENTIFIER = expression
     (6) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression { programme }
 
-    PRINT           shift and go to state 5
+    PAS_MAL         shift and go to state 5
     IDENTIFIER      shift and go to state 6
     ON_SE_LE_REFAIT_UNE_PETITE_FOIS shift and go to state 7
 
     statement                      shift and go to state 2
-    programme                      shift and go to state 16
+    programme                      shift and go to state 20
     assignation                    shift and go to state 3
     structure                      shift and go to state 4
 
 state 9
 
-    (5) statement -> PRINT expression .
+    (5) statement -> PAS_MAL expression .
     (7) expression -> expression . ADD_OP expression
     (8) expression -> expression . MUL_OP expression
 
-    ;               reduce using rule 5 (statement -> PRINT expression .)
-    $end            reduce using rule 5 (statement -> PRINT expression .)
-    }               reduce using rule 5 (statement -> PRINT expression .)
-    ADD_OP          shift and go to state 17
-    MUL_OP          shift and go to state 18
+    ;               reduce using rule 5 (statement -> PAS_MAL expression .)
+    $end            reduce using rule 5 (statement -> PAS_MAL expression .)
+    }               reduce using rule 5 (statement -> PAS_MAL expression .)
+    ADD_OP          shift and go to state 21
+    MUL_OP          shift and go to state 22
 
 
 state 10
 
-    (12) expression -> ADD_OP . expression
+    (16) expression -> ADD_OP . expression
     (7) expression -> . expression ADD_OP expression
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . ADD_OP expression
+    (10) expression -> . INT
+    (11) expression -> . boolean
+    (12) expression -> . IDENTIFIER
+    (15) expression -> . ( expression )
+    (16) expression -> . ADD_OP expression
+    (13) boolean -> . TRUE
+    (14) boolean -> . FALSE
 
     NUMBER          shift and go to state 11
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 13
+    INT             shift and go to state 12
+    IDENTIFIER      shift and go to state 14
+    (               shift and go to state 15
     ADD_OP          shift and go to state 10
+    TRUE            shift and go to state 16
+    FALSE           shift and go to state 17
 
-    expression                     shift and go to state 19
+    expression                     shift and go to state 23
+    boolean                        shift and go to state 13
 
 state 11
 
@@ -203,63 +256,131 @@ state 11
 
 state 12
 
-    (10) expression -> IDENTIFIER .
+    (10) expression -> INT .
 
-    ADD_OP          reduce using rule 10 (expression -> IDENTIFIER .)
-    MUL_OP          reduce using rule 10 (expression -> IDENTIFIER .)
-    ;               reduce using rule 10 (expression -> IDENTIFIER .)
-    $end            reduce using rule 10 (expression -> IDENTIFIER .)
-    }               reduce using rule 10 (expression -> IDENTIFIER .)
-    {               reduce using rule 10 (expression -> IDENTIFIER .)
-    )               reduce using rule 10 (expression -> IDENTIFIER .)
+    ADD_OP          reduce using rule 10 (expression -> INT .)
+    MUL_OP          reduce using rule 10 (expression -> INT .)
+    ;               reduce using rule 10 (expression -> INT .)
+    $end            reduce using rule 10 (expression -> INT .)
+    }               reduce using rule 10 (expression -> INT .)
+    {               reduce using rule 10 (expression -> INT .)
+    )               reduce using rule 10 (expression -> INT .)
 
 
 state 13
 
-    (11) expression -> ( . expression )
-    (7) expression -> . expression ADD_OP expression
-    (8) expression -> . expression MUL_OP expression
-    (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . ADD_OP expression
+    (11) expression -> boolean .
 
-    NUMBER          shift and go to state 11
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 13
-    ADD_OP          shift and go to state 10
+    ADD_OP          reduce using rule 11 (expression -> boolean .)
+    MUL_OP          reduce using rule 11 (expression -> boolean .)
+    ;               reduce using rule 11 (expression -> boolean .)
+    $end            reduce using rule 11 (expression -> boolean .)
+    }               reduce using rule 11 (expression -> boolean .)
+    {               reduce using rule 11 (expression -> boolean .)
+    )               reduce using rule 11 (expression -> boolean .)
 
-    expression                     shift and go to state 20
 
 state 14
 
-    (13) assignation -> IDENTIFIER = . expression
+    (12) expression -> IDENTIFIER .
+
+    ADD_OP          reduce using rule 12 (expression -> IDENTIFIER .)
+    MUL_OP          reduce using rule 12 (expression -> IDENTIFIER .)
+    ;               reduce using rule 12 (expression -> IDENTIFIER .)
+    $end            reduce using rule 12 (expression -> IDENTIFIER .)
+    }               reduce using rule 12 (expression -> IDENTIFIER .)
+    {               reduce using rule 12 (expression -> IDENTIFIER .)
+    )               reduce using rule 12 (expression -> IDENTIFIER .)
+
+
+state 15
+
+    (15) expression -> ( . expression )
     (7) expression -> . expression ADD_OP expression
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . ADD_OP expression
+    (10) expression -> . INT
+    (11) expression -> . boolean
+    (12) expression -> . IDENTIFIER
+    (15) expression -> . ( expression )
+    (16) expression -> . ADD_OP expression
+    (13) boolean -> . TRUE
+    (14) boolean -> . FALSE
 
     NUMBER          shift and go to state 11
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 13
+    INT             shift and go to state 12
+    IDENTIFIER      shift and go to state 14
+    (               shift and go to state 15
     ADD_OP          shift and go to state 10
+    TRUE            shift and go to state 16
+    FALSE           shift and go to state 17
 
-    expression                     shift and go to state 21
+    expression                     shift and go to state 24
+    boolean                        shift and go to state 13
 
-state 15
+state 16
+
+    (13) boolean -> TRUE .
+
+    ADD_OP          reduce using rule 13 (boolean -> TRUE .)
+    MUL_OP          reduce using rule 13 (boolean -> TRUE .)
+    ;               reduce using rule 13 (boolean -> TRUE .)
+    $end            reduce using rule 13 (boolean -> TRUE .)
+    }               reduce using rule 13 (boolean -> TRUE .)
+    {               reduce using rule 13 (boolean -> TRUE .)
+    )               reduce using rule 13 (boolean -> TRUE .)
+
+
+state 17
+
+    (14) boolean -> FALSE .
+
+    ADD_OP          reduce using rule 14 (boolean -> FALSE .)
+    MUL_OP          reduce using rule 14 (boolean -> FALSE .)
+    ;               reduce using rule 14 (boolean -> FALSE .)
+    $end            reduce using rule 14 (boolean -> FALSE .)
+    }               reduce using rule 14 (boolean -> FALSE .)
+    {               reduce using rule 14 (boolean -> FALSE .)
+    )               reduce using rule 14 (boolean -> FALSE .)
+
+
+state 18
+
+    (17) assignation -> IDENTIFIER = . expression
+    (7) expression -> . expression ADD_OP expression
+    (8) expression -> . expression MUL_OP expression
+    (9) expression -> . NUMBER
+    (10) expression -> . INT
+    (11) expression -> . boolean
+    (12) expression -> . IDENTIFIER
+    (15) expression -> . ( expression )
+    (16) expression -> . ADD_OP expression
+    (13) boolean -> . TRUE
+    (14) boolean -> . FALSE
+
+    NUMBER          shift and go to state 11
+    INT             shift and go to state 12
+    IDENTIFIER      shift and go to state 14
+    (               shift and go to state 15
+    ADD_OP          shift and go to state 10
+    TRUE            shift and go to state 16
+    FALSE           shift and go to state 17
+
+    expression                     shift and go to state 25
+    boolean                        shift and go to state 13
+
+state 19
 
     (6) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression . { programme }
     (7) expression -> expression . ADD_OP expression
     (8) expression -> expression . MUL_OP expression
 
-    {               shift and go to state 22
-    ADD_OP          shift and go to state 17
-    MUL_OP          shift and go to state 18
+    {               shift and go to state 26
+    ADD_OP          shift and go to state 21
+    MUL_OP          shift and go to state 22
 
 
-state 16
+state 20
 
     (2) programme -> statement ; programme .
 
@@ -267,103 +388,119 @@ state 16
     }               reduce using rule 2 (programme -> statement ; programme .)
 
 
-state 17
+state 21
 
     (7) expression -> expression ADD_OP . expression
     (7) expression -> . expression ADD_OP expression
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . ADD_OP expression
+    (10) expression -> . INT
+    (11) expression -> . boolean
+    (12) expression -> . IDENTIFIER
+    (15) expression -> . ( expression )
+    (16) expression -> . ADD_OP expression
+    (13) boolean -> . TRUE
+    (14) boolean -> . FALSE
 
     NUMBER          shift and go to state 11
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 13
+    INT             shift and go to state 12
+    IDENTIFIER      shift and go to state 14
+    (               shift and go to state 15
     ADD_OP          shift and go to state 10
+    TRUE            shift and go to state 16
+    FALSE           shift and go to state 17
 
-    expression                     shift and go to state 23
+    expression                     shift and go to state 27
+    boolean                        shift and go to state 13
 
-state 18
+state 22
 
     (8) expression -> expression MUL_OP . expression
     (7) expression -> . expression ADD_OP expression
     (8) expression -> . expression MUL_OP expression
     (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . ADD_OP expression
+    (10) expression -> . INT
+    (11) expression -> . boolean
+    (12) expression -> . IDENTIFIER
+    (15) expression -> . ( expression )
+    (16) expression -> . ADD_OP expression
+    (13) boolean -> . TRUE
+    (14) boolean -> . FALSE
 
     NUMBER          shift and go to state 11
-    IDENTIFIER      shift and go to state 12
-    (               shift and go to state 13
+    INT             shift and go to state 12
+    IDENTIFIER      shift and go to state 14
+    (               shift and go to state 15
     ADD_OP          shift and go to state 10
+    TRUE            shift and go to state 16
+    FALSE           shift and go to state 17
 
-    expression                     shift and go to state 24
+    expression                     shift and go to state 28
+    boolean                        shift and go to state 13
 
-state 19
+state 23
 
-    (12) expression -> ADD_OP expression .
+    (16) expression -> ADD_OP expression .
     (7) expression -> expression . ADD_OP expression
     (8) expression -> expression . MUL_OP expression
 
-    ADD_OP          reduce using rule 12 (expression -> ADD_OP expression .)
-    MUL_OP          reduce using rule 12 (expression -> ADD_OP expression .)
-    ;               reduce using rule 12 (expression -> ADD_OP expression .)
-    $end            reduce using rule 12 (expression -> ADD_OP expression .)
-    }               reduce using rule 12 (expression -> ADD_OP expression .)
-    {               reduce using rule 12 (expression -> ADD_OP expression .)
-    )               reduce using rule 12 (expression -> ADD_OP expression .)
+    ADD_OP          reduce using rule 16 (expression -> ADD_OP expression .)
+    MUL_OP          reduce using rule 16 (expression -> ADD_OP expression .)
+    ;               reduce using rule 16 (expression -> ADD_OP expression .)
+    $end            reduce using rule 16 (expression -> ADD_OP expression .)
+    }               reduce using rule 16 (expression -> ADD_OP expression .)
+    {               reduce using rule 16 (expression -> ADD_OP expression .)
+    )               reduce using rule 16 (expression -> ADD_OP expression .)
 
-  ! ADD_OP          [ shift and go to state 17 ]
-  ! MUL_OP          [ shift and go to state 18 ]
+  ! ADD_OP          [ shift and go to state 21 ]
+  ! MUL_OP          [ shift and go to state 22 ]
 
 
-state 20
+state 24
 
-    (11) expression -> ( expression . )
+    (15) expression -> ( expression . )
     (7) expression -> expression . ADD_OP expression
     (8) expression -> expression . MUL_OP expression
 
-    )               shift and go to state 25
-    ADD_OP          shift and go to state 17
-    MUL_OP          shift and go to state 18
+    )               shift and go to state 29
+    ADD_OP          shift and go to state 21
+    MUL_OP          shift and go to state 22
 
 
-state 21
+state 25
 
-    (13) assignation -> IDENTIFIER = expression .
+    (17) assignation -> IDENTIFIER = expression .
     (7) expression -> expression . ADD_OP expression
     (8) expression -> expression . MUL_OP expression
 
-    ;               reduce using rule 13 (assignation -> IDENTIFIER = expression .)
-    $end            reduce using rule 13 (assignation -> IDENTIFIER = expression .)
-    }               reduce using rule 13 (assignation -> IDENTIFIER = expression .)
-    ADD_OP          shift and go to state 17
-    MUL_OP          shift and go to state 18
+    ;               reduce using rule 17 (assignation -> IDENTIFIER = expression .)
+    $end            reduce using rule 17 (assignation -> IDENTIFIER = expression .)
+    }               reduce using rule 17 (assignation -> IDENTIFIER = expression .)
+    ADD_OP          shift and go to state 21
+    MUL_OP          shift and go to state 22
 
 
-state 22
+state 26
 
     (6) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression { . programme }
     (1) programme -> . statement
     (2) programme -> . statement ; programme
     (3) statement -> . assignation
     (4) statement -> . structure
-    (5) statement -> . PRINT expression
-    (13) assignation -> . IDENTIFIER = expression
+    (5) statement -> . PAS_MAL expression
+    (17) assignation -> . IDENTIFIER = expression
     (6) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression { programme }
 
-    PRINT           shift and go to state 5
+    PAS_MAL         shift and go to state 5
     IDENTIFIER      shift and go to state 6
     ON_SE_LE_REFAIT_UNE_PETITE_FOIS shift and go to state 7
 
-    programme                      shift and go to state 26
+    programme                      shift and go to state 30
     statement                      shift and go to state 2
     assignation                    shift and go to state 3
     structure                      shift and go to state 4
 
-state 23
+state 27
 
     (7) expression -> expression ADD_OP expression .
     (7) expression -> expression . ADD_OP expression
@@ -375,13 +512,13 @@ state 23
     }               reduce using rule 7 (expression -> expression ADD_OP expression .)
     {               reduce using rule 7 (expression -> expression ADD_OP expression .)
     )               reduce using rule 7 (expression -> expression ADD_OP expression .)
-    MUL_OP          shift and go to state 18
+    MUL_OP          shift and go to state 22
 
   ! MUL_OP          [ reduce using rule 7 (expression -> expression ADD_OP expression .) ]
-  ! ADD_OP          [ shift and go to state 17 ]
+  ! ADD_OP          [ shift and go to state 21 ]
 
 
-state 24
+state 28
 
     (8) expression -> expression MUL_OP expression .
     (7) expression -> expression . ADD_OP expression
@@ -395,31 +532,31 @@ state 24
     {               reduce using rule 8 (expression -> expression MUL_OP expression .)
     )               reduce using rule 8 (expression -> expression MUL_OP expression .)
 
-  ! ADD_OP          [ shift and go to state 17 ]
-  ! MUL_OP          [ shift and go to state 18 ]
+  ! ADD_OP          [ shift and go to state 21 ]
+  ! MUL_OP          [ shift and go to state 22 ]
 
 
-state 25
+state 29
 
-    (11) expression -> ( expression ) .
+    (15) expression -> ( expression ) .
 
-    ADD_OP          reduce using rule 11 (expression -> ( expression ) .)
-    MUL_OP          reduce using rule 11 (expression -> ( expression ) .)
-    ;               reduce using rule 11 (expression -> ( expression ) .)
-    $end            reduce using rule 11 (expression -> ( expression ) .)
-    }               reduce using rule 11 (expression -> ( expression ) .)
-    {               reduce using rule 11 (expression -> ( expression ) .)
-    )               reduce using rule 11 (expression -> ( expression ) .)
+    ADD_OP          reduce using rule 15 (expression -> ( expression ) .)
+    MUL_OP          reduce using rule 15 (expression -> ( expression ) .)
+    ;               reduce using rule 15 (expression -> ( expression ) .)
+    $end            reduce using rule 15 (expression -> ( expression ) .)
+    }               reduce using rule 15 (expression -> ( expression ) .)
+    {               reduce using rule 15 (expression -> ( expression ) .)
+    )               reduce using rule 15 (expression -> ( expression ) .)
 
 
-state 26
+state 30
 
     (6) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression { programme . }
 
-    }               shift and go to state 27
+    }               shift and go to state 31
 
 
-state 27
+state 31
 
     (6) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression { programme } .
 

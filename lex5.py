@@ -2,10 +2,22 @@ import ply.lex as lex
 
 reserved_words = (
 	'on_se_le_refait_une_petite_fois',
-	'print'
+	'pas_mal',		
+	'troeuw',
+	'je_vais_bosser_cette_semaine',
+	'Serieux',
+	'je_passe_mon_annee',
+	'cochon_egal_porc',
+	'fermez_vos_ordinateur',
+	'one_point',
+	'pas_terrible',
+	'true',
+	'false',
 )
 
-tokens = (
+tokens = (	
+	'BOOL',
+	'INT',
 	'NUMBER',
 	'ADD_OP',
 	'MUL_OP',
@@ -14,21 +26,39 @@ tokens = (
 
 literals = '();={}'
 
+
+def t_TRUE(t):
+    r'(troeuw)'
+    t.value = True
+    return t
+
+def t_FALSE(t):
+    r'(je_vais_bosser_cette_semaine)'
+    t.value = False
+    return t
+
+def t_NUMBER(t):
+	r'\d+(\.\d+)'
+	try:
+		t.value = float(t.value)    
+	except ValueError:
+		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
+		t.value = 0
+	return t
+
+def t_INT(t):
+	r'\d+'
+	try:
+		t.value = int(t.value)
+	except ValueError:
+		print ("error for integer", t.value)
+		t.value = 0
 def t_ADD_OP(t):
 	r'[+-]'
 	return t
 	
 def t_MUL_OP(t):
 	r'[*/]'
-	return t
-
-def t_NUMBER(t):
-	r'\d+(\.\d+)?'
-	try:
-		t.value = float(t.value)    
-	except ValueError:
-		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
-		t.value = 0
 	return t
 
 def t_IDENTIFIER(t):

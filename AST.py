@@ -120,7 +120,7 @@ class AssignNode(Node):
     type = '='
     
 class PrintNode(Node):
-    type = 'print'
+    type = 'pas_mal'
     
 class WhileNode(Node):
     type = 'on_se_le_refait_une_petite_fois'
@@ -129,6 +129,7 @@ class EntryNode(Node):
     type = 'ENTRY'
     def __init__(self):
         Node.__init__(self, None)
+
     
 def addToClass(cls):
     ''' D�corateur permettant d'ajouter la fonction d�cor�e en tant que m�thode

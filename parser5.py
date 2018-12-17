@@ -19,7 +19,7 @@ def p_statement(p):
     p[0] = p[1]
     	
 def p_statement_print(p):
-    ''' statement : PRINT expression '''
+    ''' statement : PAS_MAL expression '''
     p[0] = AST.PrintNode(p[2])
 
 def p_structure(p):
@@ -33,9 +33,16 @@ def p_expression_op(p):
     	
 def p_expression_num_or_var(p):
     '''expression : NUMBER
+        | INT
+        | boolean
         | IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
-    	
+
+def p_boolean(p):
+    ''' boolean : TRUE
+                | FALSE'''
+    p[0] = p[1]
+
 def p_expression_paren(p):
     '''expression : '(' expression ')' '''
     p[0] = p[2]
@@ -43,7 +50,11 @@ def p_expression_paren(p):
 def p_minus(p):
     ''' expression : ADD_OP expression %prec UMINUS'''
     p[0] = AST.OpNode(p[1], [p[2]])
-    	
+   	
+# def p_declaration(p):
+#     ''' declaration : TYPE IDENTIFIER '''
+#     p[0] = AST.DeclarationNode(AST.TokenNode(p[1]),AST.TokenNode(p[2]), p[3])
+
 def p_assign(p):
     ''' assignation : IDENTIFIER '=' expression '''
     p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
