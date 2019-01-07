@@ -118,6 +118,9 @@ class OpNode(Node):
     
 class AssignNode(Node):
     type = '='
+
+class DeclarationNode(Node):
+    type = '='
     
 class PrintNode(Node):
     type = 'pas_mal'

@@ -22,10 +22,14 @@ tokens = (
 	'ADD_OP',
 	'MUL_OP',
 	'IDENTIFIER',
+	'TYPE'
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
 literals = '();={}'
 
+def t_TYPE(t):
+	r'(heberline|jav|float|string)'
+	return t
 
 def t_TRUE(t):
     r'(troeuw)'
@@ -38,6 +42,7 @@ def t_FALSE(t):
     return t
 
 def t_NUMBER(t):
+	#r'\d+(\.\d+)?'
 	r'\d+(\.\d+)'
 	try:
 		t.value = float(t.value)    
@@ -52,7 +57,9 @@ def t_INT(t):
 		t.value = int(t.value)
 	except ValueError:
 		print ("error for integer", t.value)
-		t.value = 0
+		t.value = 0		
+	return t
+		
 def t_ADD_OP(t):
 	r'[+-]'
 	return t

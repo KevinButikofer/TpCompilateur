@@ -1,4 +1,8 @@
-toto = 12*-3+4; pas_mal toto;
-a = toto+1; pas_mal a; pas_mal 2*a;
-b = a*2;
-pas_mal b
+heberline x;
+x = 3;
+pas_mal x;
+x = x + troeuw - 3 + x;
+Jav t;
+t = troeuw;
+pas_mal t;
+pas mal x
