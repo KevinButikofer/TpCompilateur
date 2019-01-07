@@ -24,7 +24,7 @@ def p_statement_print(p):
     p[0] = AST.PrintNode(p[2])
 
 def p_structure(p):
-    ''' structure : ON_SE_LE_REFAIT_UNE_PETITE_FOIS expression '{' programme '}' '''
+    ''' structure : ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition '{' programme '}' '''
     p[0] = AST.WhileNode([p[2],p[4]])
 
 def p_expression_op(p):
@@ -45,7 +45,7 @@ def p_boolean(p):
     p[0] = p[1]
 
 def p_expression_paren(p):
-    '''expression : '(' expression ')' '''
+    ''' expression : '(' expression ')' '''
     p[0] = p[2]
     	
 def p_minus(p):
@@ -59,6 +59,26 @@ def p_declaration(p):
 def p_assign(p):
     ''' assignation : IDENTIFIER '=' expression '''
     p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+
+def p_condition_paren(p):
+    ''' condition : '(' expression COMPARISONOP expression ')' '''
+    p[0] = AST.ConditionNode(p[3], [p[2], p[4]])    
+
+def p_condition(p):
+    ''' condition : expression COMPARISONOP expression '''
+    p[0] = AST.ConditionNode(p[2], [p[1], p[3]])    
+
+def p_if_statement(p):
+    ''' structure : SERIEUX condition '{' programme '}' '''
+    p[0] = AST.IfNode([p[2], p[4]])
+
+def p_if_else_statement(p):
+    ''' structure : SERIEUX condition '{' programme '}' ELSE '{' programme '}' '''
+    p[0] = AST.IfElseNode([p[2], p[4], p[8]])
+
+def p_for_statement(p):
+    ''' structure : C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON '(' assignation ';' condition ';' assignation ')' '{' programme '}' '''
+    p[0] = AST.ForNode([p[3], p[5], p[7], p[10]])
 
 def p_error(p):
     if p:

@@ -133,6 +133,23 @@ class EntryNode(Node):
     def __init__(self):
         Node.__init__(self, None)
 
+class ConditionNode(Node):
+    def __init__(self, cOp, children):
+        Node.__init__(self, children)
+        self.cOp = cOp
+
+class IfNode(Node):
+    def __init__(self, children):
+        Node.__init__(self, children)
+
+class IfElseNode(Node):
+    def __init__(self, children):
+        Node.__init__(self, children)
+
+class ForNode(Node):
+    def __init__(self, children):
+        Node.__init__(self, children)
+
     
 def addToClass(cls):
     ''' D�corateur permettant d'ajouter la fonction d�cor�e en tant que m�thode

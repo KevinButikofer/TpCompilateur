@@ -5,14 +5,16 @@ reserved_words = (
 	'pas_mal',		
 	'troeuw',
 	'je_vais_bosser_cette_semaine',
-	'Serieux',
 	'je_passe_mon_annee',
 	'cochon_egal_porc',
 	'fermez_vos_ordinateur',
 	'one_point',
 	'pas_terrible',
 	'true',
-	'false',
+	'false',	
+	'serieux',
+	'else',
+	'c_est_en_forgeant_qu_on_devient_forgeron'
 )
 
 tokens = (	
@@ -22,7 +24,8 @@ tokens = (
 	'ADD_OP',
 	'MUL_OP',
 	'IDENTIFIER',
-	'TYPE'
+	'TYPE',
+	'COMPARISONOP',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
 literals = '();={}'
@@ -40,6 +43,10 @@ def t_FALSE(t):
     r'(je_vais_bosser_cette_semaine)'
     t.value = False
     return t
+
+def t_COMPARISONOP(t):
+	r'(<|>|cochon_egal_porc|je_passe_mon_annee)'
+	return t
 
 def t_NUMBER(t):
 	#r'\d+(\.\d+)?'

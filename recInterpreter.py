@@ -7,17 +7,21 @@ operations = {
     '*' : lambda x,y: x.value * y.value,
     '/' : lambda x,y: x.value / y.value,
 }
+conditions = {
+    '<' : lambda x,y: x.value < y.value,
+    '>' : lambda x,y: x.value > y.value,
+    'cochon_egal_porc' : lambda x,y: x.value == y.value,
+    'je_passe_mon_annee' : lambda x,y: x.value != y.value,
+}
 class myToken:    
     value = None
     type = None
     def __init__(self, type, value=None):
         self.type = type
-        self.value = value
-        
+        self.value = value        
     def __str__(self):
         return str(self.value)
     
-
 vars ={}
 
 @addToClass(AST.ProgramNode)
@@ -39,6 +43,65 @@ def execute(self):
     args = [c.execute() for c in self.children]
     if len(args) == 1:
         args.insert(0,0)
+    if checkType(args):
+        return reduce(operations[self.op], args)
+    else:
+        return False
+
+@addToClass(AST.AssignNode)
+def execute(self):
+    vars[self.children[0].tok].value = self.children[1].execute()
+
+@addToClass(AST.DeclarationNode)
+def execute(self):
+    vars[self.children[0].tok] = myToken(self.children[1])
+
+@addToClass(AST.PrintNode)
+def execute(self):
+    print (self.children[0].execute())
+
+@addToClass(AST.ConditionNode)
+def execute(self):
+    args = [c.execute() for c in self.children]
+    if checkType(args):
+        return reduce(conditions[self.cOp], args)
+    else:
+        return False
+        
+@addToClass(AST.WhileNode)
+def execute(self):
+    while self.children[0].execute():
+        self.children[1].execute()
+
+@addToClass(AST.IfNode)
+def execute(self):
+    b = self.children[0].execute()
+    if b:
+        self.children[1].execute()
+
+@addToClass(AST.IfElseNode)
+def execute(self):
+    b = self.children[0].execute()
+    if b:
+        self.children[1].execute()
+    else:
+        self.children[2].execute()
+
+@addToClass(AST.ForNode)
+def execute(self):
+    self.children[0].execute()
+    while self.children[1].execute():
+        self.children[2].execute()
+        self.children[3].execute()
+
+
+
+
+
+
+
+    
+def checkType(args):    
     opType = None
     for i, tok in enumerate(args):        
         if type(tok) == myToken:
@@ -47,7 +110,7 @@ def execute(self):
             elif opType == None:
                 opType = type(tok.value)
             else :
-                print("*** Error : value must be of the same type")                
+                return False        
         else:
             if type(tok) == int:
                 args[i] = myToken('int', tok)
@@ -62,26 +125,8 @@ def execute(self):
             elif opType == None:
                 opType = type(tok)
             else :
-                print("*** Error : value must be of the same type")
-                
-    return reduce(operations[self.op], args)
-
-@addToClass(AST.AssignNode)
-def execute(self):
-    vars[self.children[0].tok].value = self.children[1].execute()
-
-@addToClass(AST.DeclarationNode)
-def execute(self):
-    vars[self.children[0].tok] = myToken(self.children[1])
-
-@addToClass(AST.PrintNode)
-def execute(self):
-    print (self.children[0].execute())
-    
-@addToClass(AST.WhileNode)
-def execute(self):
-    while self.children[0].execute():
-        self.children[1].execute()
+                return False
+    return True
 
 if __name__ == "__main__":
     from parser5 import parse
