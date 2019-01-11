@@ -8,6 +8,8 @@ operations = {
     '/' : lambda x,y: x.value / y.value,
 }
 conditions = {
+    '<=' : lambda x,y: x.value <= y.value,
+    '>=' : lambda x,y: x.value >= y.value,
     '<' : lambda x,y: x.value < y.value,
     '>' : lambda x,y: x.value > y.value,
     'cochon_egal_porc' : lambda x,y: x.value == y.value,
@@ -30,7 +32,7 @@ class myToken:
         if self.type == type(val).__name__:
             self.value = val
         else:
-            print ("*** Error: variable type aren't the same")
+            print ("*** Error: assignation error type aren't the same")
     def __str__(self):
         return str(self.value)
     

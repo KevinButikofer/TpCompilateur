@@ -29,7 +29,11 @@ tokens = (
 	'COMPARISONOP',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}'
+literals = '();={}%'
+
+def t_COMMENT(t):
+	r'//.*'
+	t.lexer.lineno += len(t.value)
 
 def t_TYPE(t):
 	r'(heberline|jav|float|string)'
@@ -46,7 +50,7 @@ def t_FALSE(t):
     return t
 
 def t_COMPARISONOP(t):
-	r'(<|>|cochon_egal_porc|je_passe_mon_annee)'
+	r'(<=|>=|>|<|cochon_egal_porc|je_passe_mon_annee)'
 	return t
 
 def t_STRING(t):
