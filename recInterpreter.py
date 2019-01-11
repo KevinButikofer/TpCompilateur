@@ -13,12 +13,24 @@ conditions = {
     'cochon_egal_porc' : lambda x,y: x.value == y.value,
     'je_passe_mon_annee' : lambda x,y: x.value != y.value,
 }
+typeEnum = {
+    'heberline' : 'int',
+    'number' : 'float',
+    'string' : 'str',
+    'jav' : 'bool',
+}
 class myToken:    
     value = None
     type = None
-    def __init__(self, type, value=None):
-        self.type = type
-        self.value = value        
+    def __init__(self, myType, value=None):        
+            self.type = myType
+            self.value = value     
+    def setValue(self, val):
+        #print(type(val).__name__, " ", self.type)
+        if self.type == type(val).__name__:
+            self.value = val
+        else:
+            print ("*** Error: variable type aren't the same")
     def __str__(self):
         return str(self.value)
     
@@ -32,10 +44,13 @@ def execute(self):
 @addToClass(AST.TokenNode)
 def execute(self):
     if isinstance(self.tok, str):
-        try:
-            return vars[self.tok]
-        except KeyError:
-            print ("*** Error: variable %s undefined!" % self.tok)
+        if self.tok[0] != '"' and self.tok[-1] != '"':            
+            try:
+                return vars[self.tok]
+            except KeyError:
+                print ("*** Error: variable %s undefined!" % self.tok)
+        else:
+            return self.tok[1:-1]
     return self.tok
 
 @addToClass(AST.OpNode)
@@ -50,11 +65,11 @@ def execute(self):
 
 @addToClass(AST.AssignNode)
 def execute(self):
-    vars[self.children[0].tok].value = self.children[1].execute()
+    vars[self.children[0].tok].setValue(self.children[1].execute())
 
 @addToClass(AST.DeclarationNode)
 def execute(self):
-    vars[self.children[0].tok] = myToken(self.children[1])
+    vars[self.children[0].tok] = myToken(typeEnum[self.children[1]])
 
 @addToClass(AST.PrintNode)
 def execute(self):
@@ -96,11 +111,6 @@ def execute(self):
 
 
 
-
-
-
-
-    
 def checkType(args):    
     opType = None
     for i, tok in enumerate(args):        
@@ -119,7 +129,7 @@ def checkType(args):
             if type(tok) == bool:
                 args[i] = myToken('bool', tok)
             if type(tok) == str:
-                args[i] = myToken('string', tok)
+                args[i] = myToken('str', tok)
             if opType == type(tok):
                 continue
             elif opType == None:

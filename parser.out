@@ -26,34 +26,35 @@ Rule 9     expression -> expression MUL_OP expression
 Rule 10    expression -> NUMBER
 Rule 11    expression -> INT
 Rule 12    expression -> boolean
-Rule 13    expression -> IDENTIFIER
-Rule 14    boolean -> TRUE
-Rule 15    boolean -> FALSE
-Rule 16    expression -> ( expression )
-Rule 17    expression -> ADD_OP expression
-Rule 18    declaration -> TYPE IDENTIFIER
-Rule 19    assignation -> IDENTIFIER = expression
-Rule 20    condition -> ( expression COMPARISONOP expression )
-Rule 21    condition -> expression COMPARISONOP expression
-Rule 22    structure -> SERIEUX condition { programme }
-Rule 23    structure -> SERIEUX condition { programme } ELSE { programme }
-Rule 24    structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
+Rule 13    expression -> STRING
+Rule 14    expression -> IDENTIFIER
+Rule 15    boolean -> TRUE
+Rule 16    boolean -> FALSE
+Rule 17    expression -> ( expression )
+Rule 18    expression -> ADD_OP expression
+Rule 19    declaration -> TYPE IDENTIFIER
+Rule 20    assignation -> IDENTIFIER = expression
+Rule 21    condition -> ( expression COMPARISONOP expression )
+Rule 22    condition -> expression COMPARISONOP expression
+Rule 23    structure -> SERIEUX condition { programme }
+Rule 24    structure -> SERIEUX condition { programme } ELSE { programme }
+Rule 25    structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
 Terminals, with rules where they appear
 
-(                    : 16 20 24
-)                    : 16 20 24
-;                    : 2 24 24
-=                    : 19
-ADD_OP               : 8 17
+(                    : 17 21 25
+)                    : 17 21 25
+;                    : 2 25 25
+=                    : 20
+ADD_OP               : 8 18
 BOOL                 : 
 COCHON_EGAL_PORC     : 
-COMPARISONOP         : 20 21
-C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON : 24
-ELSE                 : 23
-FALSE                : 15
+COMPARISONOP         : 21 22
+C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON : 25
+ELSE                 : 24
+FALSE                : 16
 FERMEZ_VOS_ORDINATEUR : 
-IDENTIFIER           : 13 18 19
+IDENTIFIER           : 14 19 20
 INT                  : 11
 JE_PASSE_MON_ANNEE   : 
 JE_VAIS_BOSSER_CETTE_SEMAINE : 
@@ -63,22 +64,23 @@ ONE_POINT            :
 ON_SE_LE_REFAIT_UNE_PETITE_FOIS : 7
 PAS_MAL              : 6
 PAS_TERRIBLE         : 
-SERIEUX              : 22 23
+SERIEUX              : 23 24
+STRING               : 13
 TROEUW               : 
-TRUE                 : 14
-TYPE                 : 18
+TRUE                 : 15
+TYPE                 : 19
 error                : 
-{                    : 7 22 23 23 24
-}                    : 7 22 23 23 24
+{                    : 7 23 24 24 25
+}                    : 7 23 24 24 25
 
 Nonterminals, with rules where they appear
 
-assignation          : 3 24 24
+assignation          : 3 25 25
 boolean              : 12
-condition            : 7 22 23 24
+condition            : 7 23 24 25
 declaration          : 4
-expression           : 6 8 8 9 9 16 17 19 20 20 21 21
-programme            : 2 7 22 23 23 24 0
+expression           : 6 8 8 9 9 17 18 20 21 21 22 22
+programme            : 2 7 23 24 24 25 0
 statement            : 1 2
 structure            : 5
 
@@ -93,12 +95,12 @@ state 0
     (4) statement -> . declaration
     (5) statement -> . structure
     (6) statement -> . PAS_MAL expression
-    (19) assignation -> . IDENTIFIER = expression
-    (18) declaration -> . TYPE IDENTIFIER
+    (20) assignation -> . IDENTIFIER = expression
+    (19) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
-    (22) structure -> . SERIEUX condition { programme }
-    (23) structure -> . SERIEUX condition { programme } ELSE { programme }
-    (24) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
+    (23) structure -> . SERIEUX condition { programme }
+    (24) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
     IDENTIFIER      shift and go to state 7
@@ -164,99 +166,105 @@ state 6
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
     expression                     shift and go to state 13
     boolean                        shift and go to state 17
 
 state 7
 
-    (19) assignation -> IDENTIFIER . = expression
+    (20) assignation -> IDENTIFIER . = expression
 
-    =               shift and go to state 22
+    =               shift and go to state 23
 
 
 state 8
 
-    (18) declaration -> TYPE . IDENTIFIER
+    (19) declaration -> TYPE . IDENTIFIER
 
-    IDENTIFIER      shift and go to state 23
+    IDENTIFIER      shift and go to state 24
 
 
 state 9
 
     (7) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS . condition { programme }
-    (20) condition -> . ( expression COMPARISONOP expression )
-    (21) condition -> . expression COMPARISONOP expression
+    (21) condition -> . ( expression COMPARISONOP expression )
+    (22) condition -> . expression COMPARISONOP expression
     (8) expression -> . expression ADD_OP expression
     (9) expression -> . expression MUL_OP expression
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
-    (               shift and go to state 25
+    (               shift and go to state 26
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    condition                      shift and go to state 24
-    expression                     shift and go to state 26
+    condition                      shift and go to state 25
+    expression                     shift and go to state 27
     boolean                        shift and go to state 17
 
 state 10
 
-    (22) structure -> SERIEUX . condition { programme }
-    (23) structure -> SERIEUX . condition { programme } ELSE { programme }
-    (20) condition -> . ( expression COMPARISONOP expression )
-    (21) condition -> . expression COMPARISONOP expression
+    (23) structure -> SERIEUX . condition { programme }
+    (24) structure -> SERIEUX . condition { programme } ELSE { programme }
+    (21) condition -> . ( expression COMPARISONOP expression )
+    (22) condition -> . expression COMPARISONOP expression
     (8) expression -> . expression ADD_OP expression
     (9) expression -> . expression MUL_OP expression
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
-    (               shift and go to state 25
+    (               shift and go to state 26
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    condition                      shift and go to state 27
-    expression                     shift and go to state 26
+    condition                      shift and go to state 28
+    expression                     shift and go to state 27
     boolean                        shift and go to state 17
 
 state 11
 
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON . ( assignation ; condition ; assignation ) { programme }
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON . ( assignation ; condition ; assignation ) { programme }
 
-    (               shift and go to state 28
+    (               shift and go to state 29
 
 
 state 12
@@ -268,12 +276,12 @@ state 12
     (4) statement -> . declaration
     (5) statement -> . structure
     (6) statement -> . PAS_MAL expression
-    (19) assignation -> . IDENTIFIER = expression
-    (18) declaration -> . TYPE IDENTIFIER
+    (20) assignation -> . IDENTIFIER = expression
+    (19) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
-    (22) structure -> . SERIEUX condition { programme }
-    (23) structure -> . SERIEUX condition { programme } ELSE { programme }
-    (24) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
+    (23) structure -> . SERIEUX condition { programme }
+    (24) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
     IDENTIFIER      shift and go to state 7
@@ -283,7 +291,7 @@ state 12
     C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON shift and go to state 11
 
     statement                      shift and go to state 2
-    programme                      shift and go to state 29
+    programme                      shift and go to state 30
     assignation                    shift and go to state 3
     declaration                    shift and go to state 4
     structure                      shift and go to state 5
@@ -297,33 +305,35 @@ state 13
     ;               reduce using rule 6 (statement -> PAS_MAL expression .)
     $end            reduce using rule 6 (statement -> PAS_MAL expression .)
     }               reduce using rule 6 (statement -> PAS_MAL expression .)
-    ADD_OP          shift and go to state 30
-    MUL_OP          shift and go to state 31
+    ADD_OP          shift and go to state 31
+    MUL_OP          shift and go to state 32
 
 
 state 14
 
-    (17) expression -> ADD_OP . expression
+    (18) expression -> ADD_OP . expression
     (8) expression -> . expression ADD_OP expression
     (9) expression -> . expression MUL_OP expression
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    expression                     shift and go to state 32
+    expression                     shift and go to state 33
     boolean                        shift and go to state 17
 
 state 15
@@ -370,167 +380,187 @@ state 17
 
 state 18
 
-    (13) expression -> IDENTIFIER .
+    (13) expression -> STRING .
 
-    ADD_OP          reduce using rule 13 (expression -> IDENTIFIER .)
-    MUL_OP          reduce using rule 13 (expression -> IDENTIFIER .)
-    ;               reduce using rule 13 (expression -> IDENTIFIER .)
-    $end            reduce using rule 13 (expression -> IDENTIFIER .)
-    }               reduce using rule 13 (expression -> IDENTIFIER .)
-    COMPARISONOP    reduce using rule 13 (expression -> IDENTIFIER .)
-    )               reduce using rule 13 (expression -> IDENTIFIER .)
-    {               reduce using rule 13 (expression -> IDENTIFIER .)
+    ADD_OP          reduce using rule 13 (expression -> STRING .)
+    MUL_OP          reduce using rule 13 (expression -> STRING .)
+    ;               reduce using rule 13 (expression -> STRING .)
+    $end            reduce using rule 13 (expression -> STRING .)
+    }               reduce using rule 13 (expression -> STRING .)
+    COMPARISONOP    reduce using rule 13 (expression -> STRING .)
+    )               reduce using rule 13 (expression -> STRING .)
+    {               reduce using rule 13 (expression -> STRING .)
 
 
 state 19
 
-    (16) expression -> ( . expression )
-    (8) expression -> . expression ADD_OP expression
-    (9) expression -> . expression MUL_OP expression
-    (10) expression -> . NUMBER
-    (11) expression -> . INT
-    (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (14) expression -> IDENTIFIER .
 
-    NUMBER          shift and go to state 15
-    INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
-    ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    ADD_OP          reduce using rule 14 (expression -> IDENTIFIER .)
+    MUL_OP          reduce using rule 14 (expression -> IDENTIFIER .)
+    ;               reduce using rule 14 (expression -> IDENTIFIER .)
+    $end            reduce using rule 14 (expression -> IDENTIFIER .)
+    }               reduce using rule 14 (expression -> IDENTIFIER .)
+    COMPARISONOP    reduce using rule 14 (expression -> IDENTIFIER .)
+    )               reduce using rule 14 (expression -> IDENTIFIER .)
+    {               reduce using rule 14 (expression -> IDENTIFIER .)
 
-    expression                     shift and go to state 33
-    boolean                        shift and go to state 17
 
 state 20
 
-    (14) boolean -> TRUE .
-
-    ADD_OP          reduce using rule 14 (boolean -> TRUE .)
-    MUL_OP          reduce using rule 14 (boolean -> TRUE .)
-    ;               reduce using rule 14 (boolean -> TRUE .)
-    $end            reduce using rule 14 (boolean -> TRUE .)
-    }               reduce using rule 14 (boolean -> TRUE .)
-    COMPARISONOP    reduce using rule 14 (boolean -> TRUE .)
-    )               reduce using rule 14 (boolean -> TRUE .)
-    {               reduce using rule 14 (boolean -> TRUE .)
-
-
-state 21
-
-    (15) boolean -> FALSE .
-
-    ADD_OP          reduce using rule 15 (boolean -> FALSE .)
-    MUL_OP          reduce using rule 15 (boolean -> FALSE .)
-    ;               reduce using rule 15 (boolean -> FALSE .)
-    $end            reduce using rule 15 (boolean -> FALSE .)
-    }               reduce using rule 15 (boolean -> FALSE .)
-    COMPARISONOP    reduce using rule 15 (boolean -> FALSE .)
-    )               reduce using rule 15 (boolean -> FALSE .)
-    {               reduce using rule 15 (boolean -> FALSE .)
-
-
-state 22
-
-    (19) assignation -> IDENTIFIER = . expression
+    (17) expression -> ( . expression )
     (8) expression -> . expression ADD_OP expression
     (9) expression -> . expression MUL_OP expression
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
     expression                     shift and go to state 34
     boolean                        shift and go to state 17
 
+state 21
+
+    (15) boolean -> TRUE .
+
+    ADD_OP          reduce using rule 15 (boolean -> TRUE .)
+    MUL_OP          reduce using rule 15 (boolean -> TRUE .)
+    ;               reduce using rule 15 (boolean -> TRUE .)
+    $end            reduce using rule 15 (boolean -> TRUE .)
+    }               reduce using rule 15 (boolean -> TRUE .)
+    COMPARISONOP    reduce using rule 15 (boolean -> TRUE .)
+    )               reduce using rule 15 (boolean -> TRUE .)
+    {               reduce using rule 15 (boolean -> TRUE .)
+
+
+state 22
+
+    (16) boolean -> FALSE .
+
+    ADD_OP          reduce using rule 16 (boolean -> FALSE .)
+    MUL_OP          reduce using rule 16 (boolean -> FALSE .)
+    ;               reduce using rule 16 (boolean -> FALSE .)
+    $end            reduce using rule 16 (boolean -> FALSE .)
+    }               reduce using rule 16 (boolean -> FALSE .)
+    COMPARISONOP    reduce using rule 16 (boolean -> FALSE .)
+    )               reduce using rule 16 (boolean -> FALSE .)
+    {               reduce using rule 16 (boolean -> FALSE .)
+
+
 state 23
 
-    (18) declaration -> TYPE IDENTIFIER .
-
-    ;               reduce using rule 18 (declaration -> TYPE IDENTIFIER .)
-    $end            reduce using rule 18 (declaration -> TYPE IDENTIFIER .)
-    }               reduce using rule 18 (declaration -> TYPE IDENTIFIER .)
-
-
-state 24
-
-    (7) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition . { programme }
-
-    {               shift and go to state 35
-
-
-state 25
-
-    (20) condition -> ( . expression COMPARISONOP expression )
-    (16) expression -> ( . expression )
+    (20) assignation -> IDENTIFIER = . expression
     (8) expression -> . expression ADD_OP expression
     (9) expression -> . expression MUL_OP expression
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    expression                     shift and go to state 36
+    expression                     shift and go to state 35
     boolean                        shift and go to state 17
+
+state 24
+
+    (19) declaration -> TYPE IDENTIFIER .
+
+    ;               reduce using rule 19 (declaration -> TYPE IDENTIFIER .)
+    $end            reduce using rule 19 (declaration -> TYPE IDENTIFIER .)
+    }               reduce using rule 19 (declaration -> TYPE IDENTIFIER .)
+
+
+state 25
+
+    (7) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition . { programme }
+
+    {               shift and go to state 36
+
 
 state 26
 
-    (21) condition -> expression . COMPARISONOP expression
-    (8) expression -> expression . ADD_OP expression
-    (9) expression -> expression . MUL_OP expression
+    (21) condition -> ( . expression COMPARISONOP expression )
+    (17) expression -> ( . expression )
+    (8) expression -> . expression ADD_OP expression
+    (9) expression -> . expression MUL_OP expression
+    (10) expression -> . NUMBER
+    (11) expression -> . INT
+    (12) expression -> . boolean
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
-    COMPARISONOP    shift and go to state 37
-    ADD_OP          shift and go to state 30
-    MUL_OP          shift and go to state 31
+    NUMBER          shift and go to state 15
+    INT             shift and go to state 16
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
+    ADD_OP          shift and go to state 14
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
+    expression                     shift and go to state 37
+    boolean                        shift and go to state 17
 
 state 27
 
-    (22) structure -> SERIEUX condition . { programme }
-    (23) structure -> SERIEUX condition . { programme } ELSE { programme }
+    (22) condition -> expression . COMPARISONOP expression
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
 
-    {               shift and go to state 38
+    COMPARISONOP    shift and go to state 38
+    ADD_OP          shift and go to state 31
+    MUL_OP          shift and go to state 32
 
 
 state 28
 
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( . assignation ; condition ; assignation ) { programme }
-    (19) assignation -> . IDENTIFIER = expression
+    (23) structure -> SERIEUX condition . { programme }
+    (24) structure -> SERIEUX condition . { programme } ELSE { programme }
+
+    {               shift and go to state 39
+
+
+state 29
+
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( . assignation ; condition ; assignation ) { programme }
+    (20) assignation -> . IDENTIFIER = expression
 
     IDENTIFIER      shift and go to state 7
 
-    assignation                    shift and go to state 39
+    assignation                    shift and go to state 40
 
-state 29
+state 30
 
     (2) programme -> statement ; programme .
 
@@ -538,7 +568,7 @@ state 29
     }               reduce using rule 2 (programme -> statement ; programme .)
 
 
-state 30
+state 31
 
     (8) expression -> expression ADD_OP . expression
     (8) expression -> . expression ADD_OP expression
@@ -546,24 +576,26 @@ state 30
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    expression                     shift and go to state 40
+    expression                     shift and go to state 41
     boolean                        shift and go to state 17
 
-state 31
+state 32
 
     (9) expression -> expression MUL_OP . expression
     (8) expression -> . expression ADD_OP expression
@@ -571,68 +603,70 @@ state 31
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    expression                     shift and go to state 41
+    expression                     shift and go to state 42
     boolean                        shift and go to state 17
-
-state 32
-
-    (17) expression -> ADD_OP expression .
-    (8) expression -> expression . ADD_OP expression
-    (9) expression -> expression . MUL_OP expression
-
-    ADD_OP          reduce using rule 17 (expression -> ADD_OP expression .)
-    MUL_OP          reduce using rule 17 (expression -> ADD_OP expression .)
-    ;               reduce using rule 17 (expression -> ADD_OP expression .)
-    $end            reduce using rule 17 (expression -> ADD_OP expression .)
-    }               reduce using rule 17 (expression -> ADD_OP expression .)
-    COMPARISONOP    reduce using rule 17 (expression -> ADD_OP expression .)
-    )               reduce using rule 17 (expression -> ADD_OP expression .)
-    {               reduce using rule 17 (expression -> ADD_OP expression .)
-
-  ! ADD_OP          [ shift and go to state 30 ]
-  ! MUL_OP          [ shift and go to state 31 ]
-
 
 state 33
 
-    (16) expression -> ( expression . )
+    (18) expression -> ADD_OP expression .
     (8) expression -> expression . ADD_OP expression
     (9) expression -> expression . MUL_OP expression
 
-    )               shift and go to state 42
-    ADD_OP          shift and go to state 30
-    MUL_OP          shift and go to state 31
+    ADD_OP          reduce using rule 18 (expression -> ADD_OP expression .)
+    MUL_OP          reduce using rule 18 (expression -> ADD_OP expression .)
+    ;               reduce using rule 18 (expression -> ADD_OP expression .)
+    $end            reduce using rule 18 (expression -> ADD_OP expression .)
+    }               reduce using rule 18 (expression -> ADD_OP expression .)
+    COMPARISONOP    reduce using rule 18 (expression -> ADD_OP expression .)
+    )               reduce using rule 18 (expression -> ADD_OP expression .)
+    {               reduce using rule 18 (expression -> ADD_OP expression .)
+
+  ! ADD_OP          [ shift and go to state 31 ]
+  ! MUL_OP          [ shift and go to state 32 ]
 
 
 state 34
 
-    (19) assignation -> IDENTIFIER = expression .
+    (17) expression -> ( expression . )
     (8) expression -> expression . ADD_OP expression
     (9) expression -> expression . MUL_OP expression
 
-    ;               reduce using rule 19 (assignation -> IDENTIFIER = expression .)
-    $end            reduce using rule 19 (assignation -> IDENTIFIER = expression .)
-    }               reduce using rule 19 (assignation -> IDENTIFIER = expression .)
-    )               reduce using rule 19 (assignation -> IDENTIFIER = expression .)
-    ADD_OP          shift and go to state 30
-    MUL_OP          shift and go to state 31
+    )               shift and go to state 43
+    ADD_OP          shift and go to state 31
+    MUL_OP          shift and go to state 32
 
 
 state 35
+
+    (20) assignation -> IDENTIFIER = expression .
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
+
+    ;               reduce using rule 20 (assignation -> IDENTIFIER = expression .)
+    $end            reduce using rule 20 (assignation -> IDENTIFIER = expression .)
+    }               reduce using rule 20 (assignation -> IDENTIFIER = expression .)
+    )               reduce using rule 20 (assignation -> IDENTIFIER = expression .)
+    ADD_OP          shift and go to state 31
+    MUL_OP          shift and go to state 32
+
+
+state 36
 
     (7) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { . programme }
     (1) programme -> . statement
@@ -641,12 +675,12 @@ state 35
     (4) statement -> . declaration
     (5) statement -> . structure
     (6) statement -> . PAS_MAL expression
-    (19) assignation -> . IDENTIFIER = expression
-    (18) declaration -> . TYPE IDENTIFIER
+    (20) assignation -> . IDENTIFIER = expression
+    (19) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
-    (22) structure -> . SERIEUX condition { programme }
-    (23) structure -> . SERIEUX condition { programme } ELSE { programme }
-    (24) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
+    (23) structure -> . SERIEUX condition { programme }
+    (24) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
     IDENTIFIER      shift and go to state 7
@@ -655,66 +689,68 @@ state 35
     SERIEUX         shift and go to state 10
     C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON shift and go to state 11
 
-    programme                      shift and go to state 43
+    programme                      shift and go to state 44
     statement                      shift and go to state 2
     assignation                    shift and go to state 3
     declaration                    shift and go to state 4
     structure                      shift and go to state 5
 
-state 36
+state 37
 
-    (20) condition -> ( expression . COMPARISONOP expression )
-    (16) expression -> ( expression . )
+    (21) condition -> ( expression . COMPARISONOP expression )
+    (17) expression -> ( expression . )
     (8) expression -> expression . ADD_OP expression
     (9) expression -> expression . MUL_OP expression
 
-    COMPARISONOP    shift and go to state 44
-    )               shift and go to state 42
-    ADD_OP          shift and go to state 30
-    MUL_OP          shift and go to state 31
+    COMPARISONOP    shift and go to state 45
+    )               shift and go to state 43
+    ADD_OP          shift and go to state 31
+    MUL_OP          shift and go to state 32
 
 
-state 37
+state 38
 
-    (21) condition -> expression COMPARISONOP . expression
+    (22) condition -> expression COMPARISONOP . expression
     (8) expression -> . expression ADD_OP expression
     (9) expression -> . expression MUL_OP expression
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    expression                     shift and go to state 45
+    expression                     shift and go to state 46
     boolean                        shift and go to state 17
 
-state 38
+state 39
 
-    (22) structure -> SERIEUX condition { . programme }
-    (23) structure -> SERIEUX condition { . programme } ELSE { programme }
+    (23) structure -> SERIEUX condition { . programme }
+    (24) structure -> SERIEUX condition { . programme } ELSE { programme }
     (1) programme -> . statement
     (2) programme -> . statement ; programme
     (3) statement -> . assignation
     (4) statement -> . declaration
     (5) statement -> . structure
     (6) statement -> . PAS_MAL expression
-    (19) assignation -> . IDENTIFIER = expression
-    (18) declaration -> . TYPE IDENTIFIER
+    (20) assignation -> . IDENTIFIER = expression
+    (19) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
-    (22) structure -> . SERIEUX condition { programme }
-    (23) structure -> . SERIEUX condition { programme } ELSE { programme }
-    (24) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
+    (23) structure -> . SERIEUX condition { programme }
+    (24) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
     IDENTIFIER      shift and go to state 7
@@ -723,20 +759,20 @@ state 38
     SERIEUX         shift and go to state 10
     C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON shift and go to state 11
 
-    programme                      shift and go to state 46
+    programme                      shift and go to state 47
     statement                      shift and go to state 2
     assignation                    shift and go to state 3
     declaration                    shift and go to state 4
     structure                      shift and go to state 5
 
-state 39
-
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation . ; condition ; assignation ) { programme }
-
-    ;               shift and go to state 47
-
-
 state 40
+
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation . ; condition ; assignation ) { programme }
+
+    ;               shift and go to state 48
+
+
+state 41
 
     (8) expression -> expression ADD_OP expression .
     (8) expression -> expression . ADD_OP expression
@@ -749,13 +785,13 @@ state 40
     COMPARISONOP    reduce using rule 8 (expression -> expression ADD_OP expression .)
     )               reduce using rule 8 (expression -> expression ADD_OP expression .)
     {               reduce using rule 8 (expression -> expression ADD_OP expression .)
-    MUL_OP          shift and go to state 31
+    MUL_OP          shift and go to state 32
 
   ! MUL_OP          [ reduce using rule 8 (expression -> expression ADD_OP expression .) ]
-  ! ADD_OP          [ shift and go to state 30 ]
+  ! ADD_OP          [ shift and go to state 31 ]
 
 
-state 41
+state 42
 
     (9) expression -> expression MUL_OP expression .
     (8) expression -> expression . ADD_OP expression
@@ -770,105 +806,109 @@ state 41
     )               reduce using rule 9 (expression -> expression MUL_OP expression .)
     {               reduce using rule 9 (expression -> expression MUL_OP expression .)
 
-  ! ADD_OP          [ shift and go to state 30 ]
-  ! MUL_OP          [ shift and go to state 31 ]
-
-
-state 42
-
-    (16) expression -> ( expression ) .
-
-    ADD_OP          reduce using rule 16 (expression -> ( expression ) .)
-    MUL_OP          reduce using rule 16 (expression -> ( expression ) .)
-    ;               reduce using rule 16 (expression -> ( expression ) .)
-    $end            reduce using rule 16 (expression -> ( expression ) .)
-    }               reduce using rule 16 (expression -> ( expression ) .)
-    COMPARISONOP    reduce using rule 16 (expression -> ( expression ) .)
-    )               reduce using rule 16 (expression -> ( expression ) .)
-    {               reduce using rule 16 (expression -> ( expression ) .)
+  ! ADD_OP          [ shift and go to state 31 ]
+  ! MUL_OP          [ shift and go to state 32 ]
 
 
 state 43
 
-    (7) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme . }
+    (17) expression -> ( expression ) .
 
-    }               shift and go to state 48
+    ADD_OP          reduce using rule 17 (expression -> ( expression ) .)
+    MUL_OP          reduce using rule 17 (expression -> ( expression ) .)
+    ;               reduce using rule 17 (expression -> ( expression ) .)
+    $end            reduce using rule 17 (expression -> ( expression ) .)
+    }               reduce using rule 17 (expression -> ( expression ) .)
+    COMPARISONOP    reduce using rule 17 (expression -> ( expression ) .)
+    )               reduce using rule 17 (expression -> ( expression ) .)
+    {               reduce using rule 17 (expression -> ( expression ) .)
 
 
 state 44
 
-    (20) condition -> ( expression COMPARISONOP . expression )
+    (7) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme . }
+
+    }               shift and go to state 49
+
+
+state 45
+
+    (21) condition -> ( expression COMPARISONOP . expression )
     (8) expression -> . expression ADD_OP expression
     (9) expression -> . expression MUL_OP expression
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
-    (               shift and go to state 19
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+    (               shift and go to state 20
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    expression                     shift and go to state 49
+    expression                     shift and go to state 50
     boolean                        shift and go to state 17
-
-state 45
-
-    (21) condition -> expression COMPARISONOP expression .
-    (8) expression -> expression . ADD_OP expression
-    (9) expression -> expression . MUL_OP expression
-
-    {               reduce using rule 21 (condition -> expression COMPARISONOP expression .)
-    ;               reduce using rule 21 (condition -> expression COMPARISONOP expression .)
-    ADD_OP          shift and go to state 30
-    MUL_OP          shift and go to state 31
-
 
 state 46
 
-    (22) structure -> SERIEUX condition { programme . }
-    (23) structure -> SERIEUX condition { programme . } ELSE { programme }
+    (22) condition -> expression COMPARISONOP expression .
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
 
-    }               shift and go to state 50
+    {               reduce using rule 22 (condition -> expression COMPARISONOP expression .)
+    ;               reduce using rule 22 (condition -> expression COMPARISONOP expression .)
+    ADD_OP          shift and go to state 31
+    MUL_OP          shift and go to state 32
 
 
 state 47
 
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; . condition ; assignation ) { programme }
-    (20) condition -> . ( expression COMPARISONOP expression )
-    (21) condition -> . expression COMPARISONOP expression
+    (23) structure -> SERIEUX condition { programme . }
+    (24) structure -> SERIEUX condition { programme . } ELSE { programme }
+
+    }               shift and go to state 51
+
+
+state 48
+
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; . condition ; assignation ) { programme }
+    (21) condition -> . ( expression COMPARISONOP expression )
+    (22) condition -> . expression COMPARISONOP expression
     (8) expression -> . expression ADD_OP expression
     (9) expression -> . expression MUL_OP expression
     (10) expression -> . NUMBER
     (11) expression -> . INT
     (12) expression -> . boolean
-    (13) expression -> . IDENTIFIER
-    (16) expression -> . ( expression )
-    (17) expression -> . ADD_OP expression
-    (14) boolean -> . TRUE
-    (15) boolean -> . FALSE
+    (13) expression -> . STRING
+    (14) expression -> . IDENTIFIER
+    (17) expression -> . ( expression )
+    (18) expression -> . ADD_OP expression
+    (15) boolean -> . TRUE
+    (16) boolean -> . FALSE
 
-    (               shift and go to state 25
+    (               shift and go to state 26
     NUMBER          shift and go to state 15
     INT             shift and go to state 16
-    IDENTIFIER      shift and go to state 18
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
     ADD_OP          shift and go to state 14
-    TRUE            shift and go to state 20
-    FALSE           shift and go to state 21
+    TRUE            shift and go to state 21
+    FALSE           shift and go to state 22
 
-    condition                      shift and go to state 51
-    expression                     shift and go to state 26
+    condition                      shift and go to state 52
+    expression                     shift and go to state 27
     boolean                        shift and go to state 17
 
-state 48
+state 49
 
     (7) structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme } .
 
@@ -877,74 +917,74 @@ state 48
     }               reduce using rule 7 (structure -> ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme } .)
 
 
-state 49
+state 50
 
-    (20) condition -> ( expression COMPARISONOP expression . )
+    (21) condition -> ( expression COMPARISONOP expression . )
     (8) expression -> expression . ADD_OP expression
     (9) expression -> expression . MUL_OP expression
 
-    )               shift and go to state 52
-    ADD_OP          shift and go to state 30
-    MUL_OP          shift and go to state 31
-
-
-state 50
-
-    (22) structure -> SERIEUX condition { programme } .
-    (23) structure -> SERIEUX condition { programme } . ELSE { programme }
-
-    ;               reduce using rule 22 (structure -> SERIEUX condition { programme } .)
-    $end            reduce using rule 22 (structure -> SERIEUX condition { programme } .)
-    }               reduce using rule 22 (structure -> SERIEUX condition { programme } .)
-    ELSE            shift and go to state 53
+    )               shift and go to state 53
+    ADD_OP          shift and go to state 31
+    MUL_OP          shift and go to state 32
 
 
 state 51
 
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition . ; assignation ) { programme }
+    (23) structure -> SERIEUX condition { programme } .
+    (24) structure -> SERIEUX condition { programme } . ELSE { programme }
 
-    ;               shift and go to state 54
+    ;               reduce using rule 23 (structure -> SERIEUX condition { programme } .)
+    $end            reduce using rule 23 (structure -> SERIEUX condition { programme } .)
+    }               reduce using rule 23 (structure -> SERIEUX condition { programme } .)
+    ELSE            shift and go to state 54
 
 
 state 52
 
-    (20) condition -> ( expression COMPARISONOP expression ) .
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition . ; assignation ) { programme }
 
-    {               reduce using rule 20 (condition -> ( expression COMPARISONOP expression ) .)
-    ;               reduce using rule 20 (condition -> ( expression COMPARISONOP expression ) .)
+    ;               shift and go to state 55
 
 
 state 53
 
-    (23) structure -> SERIEUX condition { programme } ELSE . { programme }
+    (21) condition -> ( expression COMPARISONOP expression ) .
 
-    {               shift and go to state 55
+    {               reduce using rule 21 (condition -> ( expression COMPARISONOP expression ) .)
+    ;               reduce using rule 21 (condition -> ( expression COMPARISONOP expression ) .)
 
 
 state 54
 
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; . assignation ) { programme }
-    (19) assignation -> . IDENTIFIER = expression
+    (24) structure -> SERIEUX condition { programme } ELSE . { programme }
 
-    IDENTIFIER      shift and go to state 7
+    {               shift and go to state 56
 
-    assignation                    shift and go to state 56
 
 state 55
 
-    (23) structure -> SERIEUX condition { programme } ELSE { . programme }
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; . assignation ) { programme }
+    (20) assignation -> . IDENTIFIER = expression
+
+    IDENTIFIER      shift and go to state 7
+
+    assignation                    shift and go to state 57
+
+state 56
+
+    (24) structure -> SERIEUX condition { programme } ELSE { . programme }
     (1) programme -> . statement
     (2) programme -> . statement ; programme
     (3) statement -> . assignation
     (4) statement -> . declaration
     (5) statement -> . structure
     (6) statement -> . PAS_MAL expression
-    (19) assignation -> . IDENTIFIER = expression
-    (18) declaration -> . TYPE IDENTIFIER
+    (20) assignation -> . IDENTIFIER = expression
+    (19) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
-    (22) structure -> . SERIEUX condition { programme }
-    (23) structure -> . SERIEUX condition { programme } ELSE { programme }
-    (24) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
+    (23) structure -> . SERIEUX condition { programme }
+    (24) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
     IDENTIFIER      shift and go to state 7
@@ -953,57 +993,57 @@ state 55
     SERIEUX         shift and go to state 10
     C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON shift and go to state 11
 
-    programme                      shift and go to state 57
+    programme                      shift and go to state 58
     statement                      shift and go to state 2
     assignation                    shift and go to state 3
     declaration                    shift and go to state 4
     structure                      shift and go to state 5
 
-state 56
-
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation . ) { programme }
-
-    )               shift and go to state 58
-
-
 state 57
 
-    (23) structure -> SERIEUX condition { programme } ELSE { programme . }
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation . ) { programme }
 
-    }               shift and go to state 59
+    )               shift and go to state 59
 
 
 state 58
 
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) . { programme }
+    (24) structure -> SERIEUX condition { programme } ELSE { programme . }
 
-    {               shift and go to state 60
+    }               shift and go to state 60
 
 
 state 59
 
-    (23) structure -> SERIEUX condition { programme } ELSE { programme } .
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) . { programme }
 
-    ;               reduce using rule 23 (structure -> SERIEUX condition { programme } ELSE { programme } .)
-    $end            reduce using rule 23 (structure -> SERIEUX condition { programme } ELSE { programme } .)
-    }               reduce using rule 23 (structure -> SERIEUX condition { programme } ELSE { programme } .)
+    {               shift and go to state 61
 
 
 state 60
 
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { . programme }
+    (24) structure -> SERIEUX condition { programme } ELSE { programme } .
+
+    ;               reduce using rule 24 (structure -> SERIEUX condition { programme } ELSE { programme } .)
+    $end            reduce using rule 24 (structure -> SERIEUX condition { programme } ELSE { programme } .)
+    }               reduce using rule 24 (structure -> SERIEUX condition { programme } ELSE { programme } .)
+
+
+state 61
+
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { . programme }
     (1) programme -> . statement
     (2) programme -> . statement ; programme
     (3) statement -> . assignation
     (4) statement -> . declaration
     (5) statement -> . structure
     (6) statement -> . PAS_MAL expression
-    (19) assignation -> . IDENTIFIER = expression
-    (18) declaration -> . TYPE IDENTIFIER
+    (20) assignation -> . IDENTIFIER = expression
+    (19) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
-    (22) structure -> . SERIEUX condition { programme }
-    (23) structure -> . SERIEUX condition { programme } ELSE { programme }
-    (24) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
+    (23) structure -> . SERIEUX condition { programme }
+    (24) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
     IDENTIFIER      shift and go to state 7
@@ -1013,23 +1053,23 @@ state 60
     C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON shift and go to state 11
 
     assignation                    shift and go to state 3
-    programme                      shift and go to state 61
+    programme                      shift and go to state 62
     statement                      shift and go to state 2
     declaration                    shift and go to state 4
     structure                      shift and go to state 5
 
-state 61
-
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme . }
-
-    }               shift and go to state 62
-
-
 state 62
 
-    (24) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme } .
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme . }
 
-    ;               reduce using rule 24 (structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme } .)
-    $end            reduce using rule 24 (structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme } .)
-    }               reduce using rule 24 (structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme } .)
+    }               shift and go to state 63
+
+
+state 63
+
+    (25) structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme } .
+
+    ;               reduce using rule 25 (structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme } .)
+    $end            reduce using rule 25 (structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme } .)
+    }               reduce using rule 25 (structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme } .)
 

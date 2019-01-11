@@ -1,6 +1,6 @@
 heberline a;
 a = 0;
-on_se_le_refait_une_petite_fois a < 1 {
+on_se_le_refait_une_petite_fois a == 1 {
 	a = a+1		
 };
 pas_mal 100;

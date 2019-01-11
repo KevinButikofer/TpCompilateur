@@ -1,4 +1,6 @@
 heberline a;
+jav b;
+a = troeuw;
 c_est_en_forgeant_qu_on_devient_forgeron (a = 2;  a < 7 + 1; a = a + 1){
     pas_mal a
 };

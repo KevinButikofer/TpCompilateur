@@ -36,6 +36,7 @@ def p_expression_num_or_var(p):
     '''expression : NUMBER
         | INT
         | boolean
+        | STRING
         | IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 

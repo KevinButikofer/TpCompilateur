@@ -21,6 +21,7 @@ tokens = (
 	'BOOL',
 	'INT',
 	'NUMBER',
+	'STRING',
 	'ADD_OP',
 	'MUL_OP',
 	'IDENTIFIER',
@@ -46,6 +47,15 @@ def t_FALSE(t):
 
 def t_COMPARISONOP(t):
 	r'(<|>|cochon_egal_porc|je_passe_mon_annee)'
+	return t
+
+def t_STRING(t):
+	r'["]([^\n\\]|\\(.|\n))*["]'
+	try:
+		t.value = str(t.value)    #delete first and last charactère (quote)
+	except ValueError:
+		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
+		t.value = ""	
 	return t
 
 def t_NUMBER(t):

@@ -1,6 +1,7 @@
-heberline x;
-x = 3;
-serieux (x je_passe_mon_annee 2) {
-    pas_mal x
+string s;
+s = "salut";
+pas_mal s;
+serieux (s cochon_egal_porc "salut") {
+    pas_mal "true"
 };
-pas_mal x
+pas_mal s
