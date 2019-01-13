@@ -101,8 +101,7 @@ def parse(program):
 yacc.yacc(outputdir='generated')
 
 if __name__ == "__main__":
-    import sys 
-    	
+    import sys     	
     prog = open(sys.argv[1]).read()
     result = yacc.parse(prog)
     if result:
