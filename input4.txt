@@ -1,6 +1,4 @@
 heberline a;
-//boucle infinie
-c_est_en_forgeant_qu_on_devient_forgeron (a = 2;  a > 10; a one_point){
+c_est_en_forgeant_qu_on_devient_forgeron (a = 2;  a < 10; a one_point){
     pas_mal a
 };
-pas_mal a
