@@ -1,18 +1,25 @@
 papier_crayon s;
-s = "salut \n asda";
-s = s + "s";
-heberline dsa;
+papier_crayon s2;
+s = "salut";
+s2 = s + "s";
+
+
 heberline dsb;
 dsb = 5 + 1;
-pas_mal dsb; // feslé,se{[]}{]}
+pas_mal "dsb = ";
+pas_mal dsb;
+pas_mal "dsb++";
+dsb one_point;
+pas_mal "dsb = ";
+pas_mal dsb; // dsb = 7 
+// eslé,se{[]}{]}
 
-pas_mal s;
-serieux (s cochon_egal_porc "salut") 
+pas_mal s + " == " + s2;
+serieux (s cochon_egal_porc s2) 
 {
-    pas_mal "true"
+    pas_mal troeuw
 }
 scuse
 {
-     pas_mal "false"
-};
-pas_mal s
+    pas_mal je_vais_bosser_cette_semaine
+}

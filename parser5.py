@@ -71,7 +71,7 @@ def p_condition_paren(p):
 
 def p_condition(p):
     ''' condition : expression COMPARISONOP expression '''
-    p[0] = AST.ConditionNode(p[2], [p[1], p[3]])    
+    p[0] = AST.ConditionNode(p[2], [p[1], p[3]])       
 
 def p_if_statement(p):
     ''' structure : SERIEUX condition '{' programme '}' '''

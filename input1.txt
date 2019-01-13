@@ -1,5 +1,4 @@
 heberline x;
-//pkfmespofesèlec []{}
 b = 5;
 x = 3;
 pas_mal x;

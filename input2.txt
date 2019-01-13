@@ -6,7 +6,7 @@ on_se_le_refait_une_petite_fois (a < 10) {
 	on_se_le_refait_une_petite_fois (b < 2) {
 		pas_mal a;
 		pas_mal b;
-		b = b+1
+		b one_point
 	};
-	a = a+1	
+	a one_point
 }

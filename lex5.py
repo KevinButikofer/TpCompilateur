@@ -26,7 +26,6 @@ literals = '();={}'
 
 def t_COMMENT(t):
 	r'//.*'
-	t.lexer.lineno += len(t.value)
 
 def t_INCREMENT_OP(t):
 	r'(one_point|pas_terrible)'

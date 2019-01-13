@@ -1,12 +1,14 @@
 import AST
 from AST import addToClass
 from functools import reduce
+
 operations = {
     '+' : lambda x,y: x.value + y.value,
     '-' : lambda x,y: x.value - y.value,
     '*' : lambda x,y: x.value * y.value,
     '/' : lambda x,y: x.value / y.value,
 }
+
 conditions = {
     '<=' : lambda x,y: x.value <= y.value,
     '>=' : lambda x,y: x.value >= y.value,
@@ -15,6 +17,7 @@ conditions = {
     'cochon_egal_porc' : lambda x,y: x.value == y.value,
     'je_passe_mon_annee' : lambda x,y: x.value != y.value,
 }
+
 typeEnum = {
     'heberline' : 'int',
     'number' : 'float',
@@ -28,6 +31,7 @@ class myToken:
             self.type = myType
             self.value = value     
     def setValue(self, val):
+        #check for type when assignating value
         if self.type == type(val).__name__:
             self.value = val
         else:
@@ -45,12 +49,14 @@ def execute(self):
 @addToClass(AST.TokenNode)
 def execute(self):
     if isinstance(self.tok, str):
+        #if it's a between quotes it's a string and note and identifier
         if self.tok[0] != '"' and self.tok[-1] != '"':            
             try:
                 return vars[self.tok]
             except KeyError:
                 print ("*** Error: variable %s undefined!" % self.tok)
         else:
+            #remove the quotes
             return self.tok[1:-1]
     return self.tok
 
@@ -74,6 +80,7 @@ def execute(self):
 
 @addToClass(AST.DeclarationNode)
 def execute(self):
+    #create a new token with the language type translaein "real" type
     vars[self.children[0].tok] = myToken(typeEnum[self.children[1]])
 
 @addToClass(AST.PrintNode)
@@ -82,7 +89,9 @@ def execute(self):
 
 @addToClass(AST.ConditionNode)
 def execute(self):
+    #evaluate every child and put result in list
     args = [c.execute() for c in self.children]
+    #the type of the two values must be the same
     if checkType(args):
         return reduce(conditions[self.cOp], args)
     else:
@@ -102,6 +111,7 @@ def execute(self):
 
 @addToClass(AST.IfElseNode)
 def execute(self):
+    #evaluate the condition 
     b = self.children[0].execute()
     if b:
         self.children[1].execute()
@@ -118,6 +128,7 @@ def execute(self):
 @addToClass(AST.IncrementNode)
 def execute(self):
     try:
+        #value must be set before incrementation
         if isSet(self.children[0].tok):
             if vars[self.children[0].tok].type == 'int':
                 if self.op == "one_point":
@@ -130,6 +141,7 @@ def execute(self):
         print("*** Error ", self.children[0].tok, " does not exist")
 
 def isSet(token):
+    ''' check if the value of the given token is set in vars dictionnary '''
     if vars[token].value == None:
         print("*** Error ", token, " must be set before used")
         return False
@@ -137,15 +149,20 @@ def isSet(token):
         return True
 
 def checkType(args):    
+    ''' check every type in args value and return true if they are all the same and false otherwise '''
     opType = None
     for i, tok in enumerate(args):        
-        if type(tok) == myToken:            
+        if type(tok) == myToken:     
+            #if operation type is the same as the value type we check the nex one       
             if opType == type(tok.value):
                 continue
+            #if optype is None it take the token value type
             elif opType == None:
-                opType = type(tok.value)                
+                opType = type(tok.value)   
+            #if operatin type is set and not the same as token value type we can't aply operation           
             else :
-                return False                 
+                return False       
+        #if the value is not a token we create a new myToken object with the token value and type          
         else:
             if type(tok) == int:
                 args[i] = myToken('int', tok)
@@ -161,6 +178,7 @@ def checkType(args):
                 opType = type(tok)
             else :
                 return False
+    #if we reach here every token value are the same type
     return True
  
 
