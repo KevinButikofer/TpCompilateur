@@ -1,11 +1,5 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    ONE_POINT
-    PAS_TERRIBLE
-    TROEUW
-
 Grammar
 
 Rule 0     S' -> programme
@@ -33,7 +27,7 @@ Rule 21    assignation -> IDENTIFIER = expression
 Rule 22    condition -> ( expression COMPARISONOP expression )
 Rule 23    condition -> expression COMPARISONOP expression
 Rule 24    structure -> SERIEUX condition { programme }
-Rule 25    structure -> SERIEUX condition { programme } ELSE { programme }
+Rule 25    structure -> SERIEUX condition { programme } SCUSE { programme }
 Rule 26    structure -> C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
 Terminals, with rules where they appear
@@ -45,20 +39,17 @@ Terminals, with rules where they appear
 ADD_OP               : 8 18
 COMPARISONOP         : 22 23
 C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON : 26
-ELSE                 : 25
 FALSE                : 16
 IDENTIFIER           : 14 19 20 21
 INCREMENT_OP         : 19
 INT                  : 11
 MUL_OP               : 9
 NUMBER               : 10
-ONE_POINT            : 
 ON_SE_LE_REFAIT_UNE_PETITE_FOIS : 7
 PAS_MAL              : 6
-PAS_TERRIBLE         : 
+SCUSE                : 25
 SERIEUX              : 24 25
 STRING               : 13
-TROEUW               : 
 TRUE                 : 15
 TYPE                 : 20
 error                : 
@@ -92,7 +83,7 @@ state 0
     (20) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
     (24) structure -> . SERIEUX condition { programme }
-    (25) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . SERIEUX condition { programme } SCUSE { programme }
     (26) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
@@ -227,7 +218,7 @@ state 9
 state 10
 
     (24) structure -> SERIEUX . condition { programme }
-    (25) structure -> SERIEUX . condition { programme } ELSE { programme }
+    (25) structure -> SERIEUX . condition { programme } SCUSE { programme }
     (22) condition -> . ( expression COMPARISONOP expression )
     (23) condition -> . expression COMPARISONOP expression
     (8) expression -> . expression ADD_OP expression
@@ -276,7 +267,7 @@ state 12
     (20) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
     (24) structure -> . SERIEUX condition { programme }
-    (25) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . SERIEUX condition { programme } SCUSE { programme }
     (26) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
@@ -552,7 +543,7 @@ state 28
 state 29
 
     (24) structure -> SERIEUX condition . { programme }
-    (25) structure -> SERIEUX condition . { programme } ELSE { programme }
+    (25) structure -> SERIEUX condition . { programme } SCUSE { programme }
 
     {               shift and go to state 40
 
@@ -687,7 +678,7 @@ state 37
     (20) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
     (24) structure -> . SERIEUX condition { programme }
-    (25) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . SERIEUX condition { programme } SCUSE { programme }
     (26) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
@@ -746,7 +737,7 @@ state 39
 state 40
 
     (24) structure -> SERIEUX condition { . programme }
-    (25) structure -> SERIEUX condition { . programme } ELSE { programme }
+    (25) structure -> SERIEUX condition { . programme } SCUSE { programme }
     (1) programme -> . statement
     (2) programme -> . statement ; programme
     (3) statement -> . assignation
@@ -758,7 +749,7 @@ state 40
     (20) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
     (24) structure -> . SERIEUX condition { programme }
-    (25) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . SERIEUX condition { programme } SCUSE { programme }
     (26) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
@@ -882,7 +873,7 @@ state 47
 state 48
 
     (24) structure -> SERIEUX condition { programme . }
-    (25) structure -> SERIEUX condition { programme . } ELSE { programme }
+    (25) structure -> SERIEUX condition { programme . } SCUSE { programme }
 
     }               shift and go to state 52
 
@@ -940,12 +931,12 @@ state 51
 state 52
 
     (24) structure -> SERIEUX condition { programme } .
-    (25) structure -> SERIEUX condition { programme } . ELSE { programme }
+    (25) structure -> SERIEUX condition { programme } . SCUSE { programme }
 
     ;               reduce using rule 24 (structure -> SERIEUX condition { programme } .)
     $end            reduce using rule 24 (structure -> SERIEUX condition { programme } .)
     }               reduce using rule 24 (structure -> SERIEUX condition { programme } .)
-    ELSE            shift and go to state 55
+    SCUSE           shift and go to state 55
 
 
 state 53
@@ -965,7 +956,7 @@ state 54
 
 state 55
 
-    (25) structure -> SERIEUX condition { programme } ELSE . { programme }
+    (25) structure -> SERIEUX condition { programme } SCUSE . { programme }
 
     {               shift and go to state 57
 
@@ -982,7 +973,7 @@ state 56
 
 state 57
 
-    (25) structure -> SERIEUX condition { programme } ELSE { . programme }
+    (25) structure -> SERIEUX condition { programme } SCUSE { . programme }
     (1) programme -> . statement
     (2) programme -> . statement ; programme
     (3) statement -> . assignation
@@ -994,7 +985,7 @@ state 57
     (20) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
     (24) structure -> . SERIEUX condition { programme }
-    (25) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . SERIEUX condition { programme } SCUSE { programme }
     (26) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6
@@ -1019,7 +1010,7 @@ state 58
 
 state 59
 
-    (25) structure -> SERIEUX condition { programme } ELSE { programme . }
+    (25) structure -> SERIEUX condition { programme } SCUSE { programme . }
 
     }               shift and go to state 61
 
@@ -1033,11 +1024,11 @@ state 60
 
 state 61
 
-    (25) structure -> SERIEUX condition { programme } ELSE { programme } .
+    (25) structure -> SERIEUX condition { programme } SCUSE { programme } .
 
-    ;               reduce using rule 25 (structure -> SERIEUX condition { programme } ELSE { programme } .)
-    $end            reduce using rule 25 (structure -> SERIEUX condition { programme } ELSE { programme } .)
-    }               reduce using rule 25 (structure -> SERIEUX condition { programme } ELSE { programme } .)
+    ;               reduce using rule 25 (structure -> SERIEUX condition { programme } SCUSE { programme } .)
+    $end            reduce using rule 25 (structure -> SERIEUX condition { programme } SCUSE { programme } .)
+    }               reduce using rule 25 (structure -> SERIEUX condition { programme } SCUSE { programme } .)
 
 
 state 62
@@ -1054,7 +1045,7 @@ state 62
     (20) declaration -> . TYPE IDENTIFIER
     (7) structure -> . ON_SE_LE_REFAIT_UNE_PETITE_FOIS condition { programme }
     (24) structure -> . SERIEUX condition { programme }
-    (25) structure -> . SERIEUX condition { programme } ELSE { programme }
+    (25) structure -> . SERIEUX condition { programme } SCUSE { programme }
     (26) structure -> . C_EST_EN_FORGEANT_QU_ON_DEVIENT_FORGERON ( assignation ; condition ; assignation ) { programme }
 
     PAS_MAL         shift and go to state 6

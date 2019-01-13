@@ -1,6 +1,10 @@
 string s;
 s = "salut";
 s = s + "s";
+heberline dsa;
+heberline dsb;
+dsb = dsa + 1;
+dsa one_point;
 // feslé,se{[]}{]}
 
 pas_mal s;
@@ -8,7 +12,7 @@ serieux (s cochon_egal_porc "salut")
 {
     pas_mal "true"
 }
-else 
+scuse
 {
      pas_mal "false"
 };

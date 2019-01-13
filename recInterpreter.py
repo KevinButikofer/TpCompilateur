@@ -28,7 +28,6 @@ class myToken:
             self.type = myType
             self.value = value     
     def setValue(self, val):
-        #print(type(val).__name__, " ", self.type)
         if self.type == type(val).__name__:
             self.value = val
         else:
@@ -113,11 +112,24 @@ def execute(self):
 
 @addToClass(AST.IncrementNode)
 def execute(self):
-    if self.op == "one_point":
-        vars[self.children[0].tok].value = vars[self.children[0].tok].value+1
-    elif self.op == "pas_terrible":
-        vars[self.children[0].tok].value = vars[self.children[0].tok].value-1
+    try:
+        if isSet(self.children[0].tok):
+            if vars[self.children[0].tok].type == 'int':
+                if self.op == "one_point":
+                    vars[self.children[0].tok].value = vars[self.children[0].tok].value+1
+                elif self.op == "pas_terrible":
+                    vars[self.children[0].tok].value = vars[self.children[0].tok].value-1
+            else:
+                print("*** Error only integer(heberline) type can be incremented ")
+    except:
+        print("*** Error ", self.children[0].tok, " does not exist")
 
+def isSet(token):
+    if vars[token].value == None:
+        print("*** Error ", token, " must be set before using it")
+        return False
+    else:
+        return True
 
 def checkType(args):    
     opType = None

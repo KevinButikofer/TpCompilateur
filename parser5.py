@@ -40,11 +40,6 @@ def p_expression_num_or_var(p):
         | IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 
-def p_boolean(p):
-    ''' boolean : TRUE
-                | FALSE'''
-    p[0] = p[1]
-
 def p_expression_paren(p):
     ''' expression : '(' expression ')' '''
     p[0] = p[2]
@@ -78,7 +73,7 @@ def p_if_statement(p):
     p[0] = AST.IfNode([p[2], p[4]])
 
 def p_if_else_statement(p):
-    ''' structure : SERIEUX condition '{' programme '}' ELSE '{' programme '}' '''
+    ''' structure : SERIEUX condition '{' programme '}' SCUSE '{' programme '}' '''
     p[0] = AST.IfElseNode([p[2], p[4], p[8]])
 
 def p_for_statement(p):

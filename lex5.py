@@ -2,14 +2,11 @@ import ply.lex as lex
 
 reserved_words = (
 	'on_se_le_refait_une_petite_fois',
-	'pas_mal',		
-	'troeuw',
-	'one_point',
-	'pas_terrible',
+	'pas_mal',
 	'true',
 	'false',	
 	'serieux',
-	'else',
+	'scuse',
 	'c_est_en_forgeant_qu_on_devient_forgeron'
 )
 
@@ -63,7 +60,6 @@ def t_STRING(t):
 	return t
 
 def t_NUMBER(t):
-	#r'\d+(\.\d+)?'
 	r'\d+(\.\d+)'
 	try:
 		t.value = float(t.value)    
@@ -94,8 +90,6 @@ def t_IDENTIFIER(t):
 	if t.value in reserved_words:
 		t.type = t.value.upper()
 	return t
-
-
 
 def t_newline(t):
 	r'\n+'
