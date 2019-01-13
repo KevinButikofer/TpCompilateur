@@ -21,11 +21,16 @@ tokens = (
 	'NUMBER',
 	'ADD_OP',
 	'MUL_OP',
+	'INCREMENT_OP',
 	'IDENTIFIER',
 	'TYPE'
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
 literals = '();={}'
+
+def t_INCREMENT_OP(t):
+	r'(one_point|pas_terrible)'
+	return t
 
 def t_TYPE(t):
 	r'(heberline|jav|float|string)'
@@ -73,7 +78,9 @@ def t_IDENTIFIER(t):
 	if t.value in reserved_words:
 		t.type = t.value.upper()
 	return t
-	
+
+
+
 def t_newline(t):
 	r'\n+'
 	t.lexer.lineno += len(t.value)

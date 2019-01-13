@@ -1,2 +1,4 @@
+heberline a;
 a = 4;
-print a
+a one_point;
+pas_mal a

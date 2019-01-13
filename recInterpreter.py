@@ -74,6 +74,15 @@ def execute(self):
 def execute(self):
     vars[self.children[0].tok] = myToken(self.children[1])
 
+@addToClass(AST.IncrementNode)
+def execute(self):
+    print(self.op)
+    if self.op == "one_point":
+        vars[self.children[0].tok].value = vars[self.children[0].tok].value+1
+    elif self.op == "pas_terrible":
+        vars[self.children[0].tok].value = vars[self.children[0].tok].value-1
+
+
 @addToClass(AST.PrintNode)
 def execute(self):
     print (self.children[0].execute())

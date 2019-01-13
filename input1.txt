@@ -1,8 +1,4 @@
 heberline x;
 x = 3;
-pas_mal x;
-x = x + troeuw - 3 + x;
-Jav t;
-t = troeuw;
-pas_mal t;
-pas mal x
+x pas_terrible;
+pas_mal x
