@@ -4,10 +4,6 @@ reserved_words = (
 	'on_se_le_refait_une_petite_fois',
 	'pas_mal',		
 	'troeuw',
-	'je_vais_bosser_cette_semaine',
-	'je_passe_mon_annee',
-	'cochon_egal_porc',
-	'fermez_vos_ordinateur',
 	'one_point',
 	'pas_terrible',
 	'true',
@@ -18,7 +14,6 @@ reserved_words = (
 )
 
 tokens = (	
-	'BOOL',
 	'INT',
 	'NUMBER',
 	'STRING',
