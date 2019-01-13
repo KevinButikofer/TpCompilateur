@@ -1,1 +1,15 @@
-^(troeuw|je_vais_bosser_cette_semaine)$
+string s;
+s = "salut";
+s = s + "s";
+// feslé,se{[]}{]}
+
+pas_mal s;
+serieux (s cochon_egal_porc "salut") 
+{
+    pas_mal "true"
+}
+else 
+{
+     pas_mal "false"
+};
+pas_mal s

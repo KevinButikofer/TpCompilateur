@@ -1,15 +1,6 @@
-string s;
-s = "salut";
-s = s + "s";
-// feslé,se{[]}{]}
-
-pas_mal s;
-serieux (s cochon_egal_porc "salut") 
-{
-    pas_mal "true"
-}
-else 
-{
-     pas_mal "false"
-};
-pas_mal s
+heberline x;
+//pkfmespofesèlec []{}
+x = 3;
+pas_mal x;
+x one_point;
+pas_mal x

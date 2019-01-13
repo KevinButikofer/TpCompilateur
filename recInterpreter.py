@@ -111,6 +111,12 @@ def execute(self):
         self.children[2].execute()
         self.children[3].execute()
 
+@addToClass(AST.IncrementNode)
+def execute(self):
+    if self.op == "one_point":
+        vars[self.children[0].tok].value = vars[self.children[0].tok].value+1
+    elif self.op == "pas_terrible":
+        vars[self.children[0].tok].value = vars[self.children[0].tok].value-1
 
 
 def checkType(args):    
@@ -139,6 +145,7 @@ def checkType(args):
             else :
                 return False
     return True
+ 
 
 if __name__ == "__main__":
     from parser5 import parse

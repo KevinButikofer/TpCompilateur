@@ -1,11 +1,12 @@
+heberline a;
+heberline b;
 a=0;
-on_se_le_refait_une_petite_fois (a-10) {
+on_se_le_refait_une_petite_fois (a < 10) {
 	b = 0;
-	on_se_le_refait_une_petite_fois (b-2) {
+	on_se_le_refait_une_petite_fois (b < 2) {
 		pas_mal a;
 		pas_mal b;
 		b = b+1
 	};
-	a = a+1
-		
-};
+	a = a+1	
+}

@@ -52,7 +52,11 @@ def p_expression_paren(p):
 def p_minus(p):
     ''' expression : ADD_OP expression %prec UMINUS'''
     p[0] = AST.OpNode(p[1], [p[2]])
-   	
+
+def p_increment(p):
+    ''' assignation : IDENTIFIER INCREMENT_OP '''
+    p[0] = AST.IncrementNode(p[2], AST.TokenNode(p[1]))
+
 def p_declaration(p):
     ''' declaration : TYPE IDENTIFIER '''
     p[0] = AST.DeclarationNode([AST.TokenNode(p[2]), p[1]])
