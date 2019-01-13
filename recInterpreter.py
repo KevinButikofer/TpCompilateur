@@ -64,6 +64,7 @@ def execute(self):
     else:
         return False
 
+
 @addToClass(AST.AssignNode)
 def execute(self):
     vars[self.children[0].tok].setValue(self.children[1].execute())
@@ -126,7 +127,7 @@ def execute(self):
 
 def isSet(token):
     if vars[token].value == None:
-        print("*** Error ", token, " must be set before using it")
+        print("*** Error ", token, " must be set before used")
         return False
     else:
         return True
@@ -134,13 +135,13 @@ def isSet(token):
 def checkType(args):    
     opType = None
     for i, tok in enumerate(args):        
-        if type(tok) == myToken:
+        if type(tok) == myToken:            
             if opType == type(tok.value):
                 continue
             elif opType == None:
-                opType = type(tok.value)
+                opType = type(tok.value)                
             else :
-                return False        
+                return False                 
         else:
             if type(tok) == int:
                 args[i] = myToken('int', tok)

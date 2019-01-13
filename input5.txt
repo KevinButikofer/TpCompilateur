@@ -3,9 +3,9 @@ s = "salut";
 s = s + "s";
 heberline dsa;
 heberline dsb;
-dsb = dsa + 1;
+dsb = 5 + 2;
 dsa one_point;
-// feslé,se{[]}{]}
+pas_mal dsb; // feslé,se{[]}{]}
 
 pas_mal s;
 serieux (s cochon_egal_porc "salut") 

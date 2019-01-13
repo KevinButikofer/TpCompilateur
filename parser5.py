@@ -40,6 +40,11 @@ def p_expression_num_or_var(p):
         | IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 
+def p_boolean(p):
+    ''' boolean : TRUE
+                | FALSE'''
+    p[0] = p[1]
+
 def p_expression_paren(p):
     ''' expression : '(' expression ')' '''
     p[0] = p[2]
