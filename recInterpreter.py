@@ -18,7 +18,7 @@ conditions = {
 typeEnum = {
     'heberline' : 'int',
     'number' : 'float',
-    'string' : 'str',
+    'papier_crayon' : 'str',
     'jav' : 'bool',
 }
 class myToken:    
@@ -67,7 +67,10 @@ def execute(self):
 
 @addToClass(AST.AssignNode)
 def execute(self):
-    vars[self.children[0].tok].setValue(self.children[1].execute())
+    try:
+        vars[self.children[0].tok].setValue(self.children[1].execute())
+    except:
+         print ("*** Error: variable %s assign before declaration!" % self.children[0].tok)
 
 @addToClass(AST.DeclarationNode)
 def execute(self):
@@ -83,6 +86,7 @@ def execute(self):
     if checkType(args):
         return reduce(conditions[self.cOp], args)
     else:
+        print ("*** Error: condition error type aren't the same")
         return False
         
 @addToClass(AST.WhileNode)

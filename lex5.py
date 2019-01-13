@@ -33,7 +33,7 @@ def t_INCREMENT_OP(t):
 	return t
 
 def t_TYPE(t):
-	r'(heberline|jav|float|string)'
+	r'(heberline|jav|float|papier_crayon)'
 	return t
 
 def t_TRUE(t):
@@ -51,9 +51,10 @@ def t_COMPARISONOP(t):
 	return t
 
 def t_STRING(t):
+	#https://stackoverflow.com/questions/171480/regex-grabbing-values-between-quotation-marks
 	r'["]([^\n\\]|\\(.|\n))*["]'
 	try:
-		t.value = str(t.value)    #delete first and last charactère (quote)
+		t.value = str(t.value) 
 	except ValueError:
 		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
 		t.value = ""	

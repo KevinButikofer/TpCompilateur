@@ -1,10 +1,9 @@
-string s;
-s = "salut";
+papier_crayon s;
+s = "salut \n asda";
 s = s + "s";
 heberline dsa;
 heberline dsb;
-dsb = 5 + 2;
-dsa one_point;
+dsb = 5 + 1;
 pas_mal dsb; // feslé,se{[]}{]}
 
 pas_mal s;
